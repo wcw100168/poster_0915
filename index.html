@@ -37,8 +37,9 @@
       background-color: #f1f5f9;
       color: #1e293b;
       display: flex;
-      justify-content: center;
+      justify-content: safe center;
       padding: 15px;
+      min-width: min-content;
     }
 
     /* A0 Canvas (1000px x 1414px) */
@@ -48,6 +49,7 @@
       flex-shrink: 0;
       min-width: 1000px;
       min-height: 1414px;
+      margin: 0 auto;
       background-image: url('template.png');
       background-size: 100% 100%;
       background-repeat: no-repeat;
