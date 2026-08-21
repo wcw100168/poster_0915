@@ -352,7 +352,7 @@
         padding: 0 !important;
         margin: 0 !important;
         display: block !important;
-        position: relative !important;
+        position: !important;
         background-color: transparent !important;
         overflow: hidden !important;
         -webkit-print-color-adjust: exact;
@@ -580,7 +580,7 @@
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^2$ Error</strong>
               <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
-                $$e_{L^2} = \sqrt{\frac{\int_{\Omega} (Jq - Jq_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$$
+                $$e_{L^2} = \sqrt{\frac{\int_{\Omega} J(q - q_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$$
               </div>
             </div>
 
@@ -588,7 +588,7 @@
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^\infty$ Error</strong>
               <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
-                $$e_{L^\infty} = \frac{\max_{\Omega} |q - q_{\text{ex}}|}{\max_{\Omega} |q_{\text{ex}}|}$$
+                $$e_{L^\infty} = \frac{\max_{\Omega} J|q - q_{\text{ex}}|}{\max_{\Omega} J|q_{\text{ex}}|}$$
               </div>
             </div>
 
@@ -596,7 +596,7 @@
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative Mass Error</strong>
               <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
-                $$\Delta M_{\text{rel}} = \frac{|\int_\Omega (Jq - Jq_0) d\Omega|}{\int_\Omega Jq_0 d\Omega}$$
+                $$\Delta M_{\text{rel}} = \frac{|\int_\Omega J(q - q_0) d\Omega|}{\int_\Omega Jq_0 d\Omega}$$
               </div>
             </div>
           </div>
