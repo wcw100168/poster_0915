@@ -294,13 +294,13 @@
       font-weight: 500;
     }
 
-    /* Side-by-side Images Grid for Section 5 */
+    /* Side-by-side Images Grid for Section 5 (Aspect Ratio Based) */
     .results-images-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr; /* Initial fallback, automatically updated by JS */
       gap: 5px;
       margin-top: 3px;
-      align-items: center;
+      align-items: start;
     }
 
     .results-images-grid .img-container {
@@ -312,6 +312,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    .results-images-grid .img-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
     }
 
     img {
@@ -684,6 +691,31 @@
     </main>
 
   </div>
+
+  <!-- Dynamic Aspect Ratio Script for Equal Image Height in Section 5 -->
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const grid = document.querySelector('.results-images-grid');
+      if (!grid) return;
+      
+      const imgs = grid.querySelectorAll('img');
+      if (imgs.length === 2) {
+        Promise.all(Array.from(imgs).map(img => {
+          if (img.complete && img.naturalWidth !== 0) return Promise.resolve();
+          return new Promise(resolve => {
+            img.onload = resolve;
+            img.onerror = resolve;
+          });
+        })).then(() => {
+          if (imgs[0].naturalHeight > 0 && imgs[1].naturalHeight > 0) {
+            const r1 = imgs[0].naturalWidth / imgs[0].naturalHeight;
+            const r2 = imgs[1].naturalWidth / imgs[1].naturalHeight;
+            grid.style.gridTemplateColumns = `${r1}fr ${r2}fr`;
+          }
+        });
+      }
+    });
+  </script>
 
 </body>
 </html>
