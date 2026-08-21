@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Split-Form Discontinuous Galerkin Method for Spherical Advection on Octahedral Meshes</title>
+
+  <!-- MathJax Configuration -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --border-color: #cbd5e1;
+      --tsfd-navy: #192537;
+      --accent-blue: #1e3a8a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Times New Roman', "Helvetica Neue", Arial, sans-serif;
+      background-color: #f1f5f9;
+      color: #1e293b;
+      display: flex;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    /* A0 Canvas (1000px x 1414px) */
+    .poster-canvas {
+      width: 1000px;
+      height: 1414px;
+      background-image: url('template.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Title Section Overlay */
+    .title-overlay {
+      position: absolute;
+      top: 90px;
+      left: 0;
+      width: 100%;
+      height: 225px;
+      background-color: transparent;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 30px;
+      text-align: center;
+    }
+
+    .title-overlay .paper-title {
+      font-size: 1.62rem;
+      font-weight: bold;
+      color: #000000;
+      line-height: 1.22;
+      margin-bottom: 6px;
+    }
+
+    .title-overlay .authors {
+      font-size: 0.96rem;
+      font-weight: bold;
+      margin-bottom: 3px;
+      color: #1e293b;
+    }
+
+    .title-overlay .affiliations {
+      font-size: 0.84rem;
+      color: #333333;
+      margin-bottom: 3px;
+    }
+
+    .title-overlay .email {
+      font-size: 0.78rem;
+      color: #444444;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Content Grid Layout */
+    .content-overlay {
+      position: absolute;
+      top: 318px;
+      left: 0;
+      width: 100%;
+      height: 1060px;
+      padding: 10px 22px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* Card Box Styles */
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 7px 9px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+
+    .card-title {
+      font-size: 0.92rem;
+      font-weight: bold;
+      color: var(--tsfd-navy);
+      border-bottom: 2px solid var(--tsfd-navy);
+      padding-bottom: 2px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .sub-heading {
+      font-size: 0.74rem;
+      font-weight: bold;
+      color: var(--tsfd-navy);
+      margin-top: 3px;
+      margin-bottom: 2px;
+    }
+
+    p {
+      font-size: 0.71rem;
+      line-height: 1.30;
+      margin-bottom: 2px;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin-left: 14px;
+      font-size: 0.70rem;
+      line-height: 1.28;
+    }
+
+    li {
+      margin-bottom: 2px;
+    }
+
+    .equation-container {
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 2px 4px;
+      margin: 2px 0;
+      text-align: center;
+      font-size: 0.69rem;
+      border-radius: 3px;
+    }
+
+    /* Section 2 Side-by-Side Layout */
+    .section2-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 8px;
+      align-items: start;
+    }
+
+    /* Section 3 Custom 2-Column Layout */
+    .section3-grid-custom {
+      display: grid;
+      grid-template-columns: 1fr 1.12fr;
+      gap: 6px;
+      margin-top: 3px;
+    }
+
+    .section3-left-col {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .sub-card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      padding: 5px;
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      justify-content: space-between;
+    }
+
+    .sub-card-title {
+      font-size: 0.68rem;
+      font-weight: bold;
+      color: var(--tsfd-navy);
+      margin-bottom: 2px;
+      width: 100%;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 2px;
+    }
+
+    /* Error Sub-blocks for Section 5 */
+    .error-triple-container {
+      display: flex;
+      gap: 4px;
+      margin: 2px 0;
+    }
+
+    .error-sub-block {
+      flex: 1;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      padding: 2px;
+      border-radius: 3px;
+      text-align: center;
+      min-height: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Table Styling */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      margin: 3px 0;
+    }
+
+    table.results-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.53rem;
+      text-align: center;
+      line-height: 1.15;
+    }
+
+    table.results-table th, table.results-table td {
+      border: 1px solid var(--border-color);
+      padding: 1.5px 1px;
+      vertical-align: middle;
+    }
+
+    table.results-table th {
+      background-color: #f1f5f9;
+      color: var(--tsfd-navy);
+      font-weight: bold;
+      border-bottom: 1.5px solid var(--tsfd-navy);
+    }
+
+    table.results-table tr:nth-child(even) {
+      background-color: #f8fafc;
+    }
+
+    /* Dark separator between experiments */
+    table.results-table tr.exp-divider td {
+      border-bottom: 1.5px solid var(--tsfd-navy);
+    }
+
+    /* Rectangular Placeholder Box */
+    .placeholder-box {
+      width: 100%;
+      border: 2px dashed #94a3b8;
+      background-color: #f8fafc;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #64748b;
+      font-size: 0.70rem;
+      font-weight: 500;
+    }
+
+    /* Side-by-side Images Grid for Section 5 */
+    .results-images-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      margin-top: 3px;
+      align-items: center;
+    }
+
+    .results-images-grid .img-container {
+      text-align: center;
+      background-color: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 3px;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .fig-title {
+      font-size: 0.52rem;
+      font-weight: bold;
+      color: #475569;
+      margin-top: 1px;
+    }
+
+    .highlight-text {
+      font-weight: bold;
+      color: var(--accent-blue);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Poster Canvas -->
+  <div class="poster-canvas">
+
+    <!-- Title Section Overlay -->
+    <section class="title-overlay">
+      <h1 class="paper-title">A Split-Form Discontinuous Galerkin Method<br>for Spherical Advection on Octahedral Meshes</h1>
+      <div class="authors">
+        Student: Yu Sheng, Chiu<sup>1</sup>, Chi Wei, Wang<sup>2</sup>, Po Hsun, Liu<sup>3</sup> &nbsp;|&nbsp; Advisor: Prof. Chun-Hao Teng<sup>1</sup>
+      </div>
+      <div class="affiliations">
+        <sup>1,2,3</sup>Department of Applied Mathematics, National Chung Hsing University
+      </div>
+      <div class="email">
+        通訊作者: s112053101@smail.nchu.edu.tw
+      </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main class="content-overlay">
+
+      <!-- LEFT COLUMN -->
+      <div class="column">
+
+        <!-- 1. Introduction -->
+        <div class="card">
+          <h2 class="card-title">1. Introduction</h2>
+          <p>
+            Scalar transport on the sphere is widely used in atmospheric and geophysical applications, while longitude–latitude coordinates suffer from singularities at the poles. To avoid this issue, we adopt an octahedron-based triangular manifold mesh.
+          </p>
+          <p>
+            Since quadrature-nodal DG discretizations generally do not preserve the continuous chain rule or product rule, a <span class="highlight-text">split formulation</span> is introduced to correct the discrete structure of the conservation form. Its numerical behavior is then evaluated through the time evolution of mass and $L_2$ errors.
+          </p>
+        </div>
+
+        <!-- 2. Mathematical Formulation -->
+        <div class="card">
+          <h2 class="card-title">2. Mathematical Formulation</h2>
+          
+          <div class="section2-grid">
+            <!-- Left Side: Conservation Form -->
+            <div>
+              <p>The mapping conservation law is written as</p>
+              <div class="equation-container" style="padding: 2px 1px; font-size: 0.67rem;">
+                $$\frac{\partial(Jq)}{\partial t} + \frac{\partial(Ju^r q)}{\partial r} + \frac{\partial(Ju^s q)}{\partial s} = 0.$$
+              </div>
+              <p style="margin-top: 2px; font-size: 0.68rem;">
+                Here, $J$ is the surface Jacobian, while $u^r$ and $u^s$ are the contravariant velocity components.
+              </p>
+            </div>
+
+            <!-- Right Side: Split Form -->
+            <div>
+              <p>The mapped conservation law can be rewritten as the split form</p>
+              <div class="equation-container" style="padding: 2px 1px; font-size: 0.59rem; text-align: left;">
+                $$\begin{aligned}
+                J\frac{\partial q}{\partial t} &+ \frac{1}{2}\Bigg[\frac{\partial(Ju^r q)}{\partial r} + Ju^r\frac{\partial q}{\partial r} + q\frac{\partial(Ju^r)}{\partial r} \\
+                &\quad + \frac{\partial(Ju^s q)}{\partial s} + Ju^s\frac{\partial q}{\partial s} + q\frac{\partial(Ju^s)}{\partial s}\Bigg] = 0.
+                \end{aligned}$$
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Mesh Mapping & Field Setup -->
+        <div class="card">
+          <h2 class="card-title">3. Mesh Mapping & Field Setup</h2>
+
+          <div class="section3-grid-custom">
+
+            <!-- Left Column: Block 1 & Block 2 Stacked -->
+            <div class="section3-left-col">
+              
+              <!-- Block 1: Mesh & Quadrature Nodes -->
+              <div class="sub-card">
+                <span class="sub-card-title">1. Mesh & Quadrature Nodes</span>
+                <p style="font-size: 0.58rem; margin: 1px 0;">Symmetric node sets ($N=1 \sim 4$):</p>
+                <div style="display: flex; flex-direction: column; gap: 1px; align-items: center; width: 100%;">
+                  <div style="text-align: center; width: 100%;">
+                    <img src="table1.png" alt="Nodes Set A">
+                    <div style="font-size: 0.52rem; color: #334155;">Set A: $n_k = 6, 10, 18, 22$</div>
+                  </div>
+                  <div style="text-align: center; width: 100%;">
+                    <img src="table2.png" alt="Nodes Set B">
+                    <div style="font-size: 0.52rem; color: #334155;">Set B: $n_k = 3, 6, 12, 16$</div>
+                  </div>
+                </div>
+                <div class="fig-title">Figure 1: Quadrature Node Distributions</div>
+              </div>
+
+              <!-- Block 2: Octahedral Mapping -->
+              <div class="sub-card">
+                <span class="sub-card-title">2. Octahedral Mapping</span>
+                <div class="equation-container" style="font-size: 0.56rem; padding: 1px; width: 100%;">
+                  $$\mathbf{x}_s = R \frac{\mathbf{x}_{\text{flat}}}{\|\mathbf{x}_{\text{flat}}\|}$$
+                </div>
+                <img src="Octahedral_Mapping_v2.png" alt="Octahedral Mapping">
+                <div class="fig-title">Figure 2: Radial Projection Mapping</div>
+              </div>
+
+            </div>
+
+            <!-- Right Column: Block 3 (Initial Field & Wind Field Combined) -->
+            <div class="sub-card" style="justify-content: flex-start; gap: 2px;">
+              <span class="sub-card-title">3. Initial Field & Wind Field</span>
+              
+              <!-- Initial Field Details -->
+              <div style="width: 100%; text-align: center;">
+                <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">3D Gaussian Bell ($q_{\max} = 1000$)</p>
+                <div class="equation-container" style="font-size: 0.55rem; padding: 1px; width: 100%; margin: 1px 0;">
+                  $$q_0(\mathbf{x}) = 1000 \exp(-\sigma r^2), \quad r = \arccos(\mathbf{x} \cdot \mathbf{x}_c)$$
+                </div>
+                <p style="font-size: 0.52rem; color: #334155; margin: 0;">
+                  Center $\mathbf{x}_c = (R, 0, 0)^T$, where $R=6.371 \times 10^6$ m is the radius of the Earth, decay factor $\sigma = 10.0$.
+                </p>
+              </div>
+
+              <!-- Wind Field Details -->
+              <div style="width: 100%; text-align: center; margin-top: 1px;">
+                <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">Solid-Body Rotation $\mathbf{u}(\mathbf{x})$</p>
+                <div class="equation-container" style="font-size: 0.48rem; padding: 1px; width: 100%; margin: 1px 0;">
+                  $$\mathbf{u} = \boldsymbol{\Omega} \times \mathbf{x} = \begin{pmatrix} -\omega y \cos\alpha_0 \\ \omega x \cos\alpha_0 - \omega z \sin\alpha_0 \\ \omega y \sin\alpha_0 \end{pmatrix}$$
+                </div>
+                <p style="font-size: 0.52rem; color: #334155; margin: 0;">
+                  Period $T = 12\text{ days}$, $\omega = 2\pi / T$, angle $\alpha_0 = -\pi/4$.
+                </p>
+              </div>
+
+              <!-- Combined Figure -->
+              <img src="Wind_Field_v2.jpg" alt="Field Advection and Wind Vectors" style="margin-top: 1px;">
+              <div class="fig-title" style="line-height: 1.2; font-size: 0.50rem; margin-top: 1px;">
+                Figure 3: Advection snapshot with wind vectors ($\rightarrow$).<br>
+                Dashed contours denote initial state ($t = 0$), and solid surface shows half-period position ($t = 6\text{ d}$).
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- References -->
+        <div class="card">
+          <h2 class="card-title">References</h2>
+          <div class="placeholder-box" style="height: 50px;">
+            [ References Placeholder / 參考文獻預留位 ]
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="column">
+
+        <!-- 4. Discrete Formulation -->
+        <div class="card">
+          <h2 class="card-title">4. Discrete Formulation</h2>
+
+          <div class="sub-heading">Quadrature-Nodal Operators</div>
+          <div class="equation-container" style="font-size: 0.63rem;">
+            $$V_{ij}=\phi_j(r_i,s_i), \quad (V_b^\gamma)_{ij} = \phi_j(r_i^\gamma,s_i^\gamma), \quad (V_m)_{ij}=\frac{\partial\phi_j(r_i^\gamma,s_i^\gamma)}{\partial m}, \quad P=(V^T W V)^{-1}V^T W$$
+          </div>
+          <div class="equation-container" style="font-size: 0.64rem;">
+            $$D_r=V_rP, \quad D_s=V_sP, \quad R^\gamma=V_b^\gamma P, \quad L^\gamma = \frac{1}{J} W^{-1} (R^\gamma)^T W_b$$
+          </div>
+
+          <div class="sub-heading">Split-Form DG Discretization</div>
+          <div class="equation-container" style="font-size: 0.58rem; text-align: left; padding: 2px 3px;">
+            $$\begin{aligned}
+            \frac{d\mathbf q}{dt} ={}& -\frac{1}{2J} \Big[
+            D_r\big((Ju^r)\odot\mathbf q\big) + (Ju^r)\odot D_r\mathbf q + \mathbf q\odot D_r(Ju^r) \\
+            &+ D_s\big((Ju^s)\odot\mathbf q\big) + (Ju^s)\odot D_s\mathbf q + \mathbf q\odot D_s(Ju^s)
+            \Big] + \sum_{\gamma\subset\partial T} L^\gamma p^\gamma
+            \end{aligned}$$
+          </div>
+          <div class="equation-container" style="font-size: 0.55rem; text-align: left; padding: 2px 3px;">
+            $$p^\gamma = \frac{1}{2} \bigg[n_r^\gamma R^\gamma(J u^r \odot \mathbf{q}) + n_s^\gamma R^\gamma(J u^s \odot \mathbf{q}) + [n_r^\gamma R^\gamma(J u^r) + n_s^\gamma R^\gamma(J u^s) ] \odot (R^\gamma \mathbf{q})\bigg] - F^{*,\gamma}$$
+          </div>
+
+          <div class="sub-heading">Time Integration</div>
+          <div class="equation-container" style="font-size: 0.65rem;">
+            $$\frac{d\mathbf q}{dt} = \mathcal{R}(\mathbf q,t), \qquad \mathbf{\text{LSRK54 : 5-stage, 4th-order}}$$
+          </div>
+        </div>
+
+        <!-- 5. Numerical Results -->
+        <div class="card">
+          <h2 class="card-title">5. Numerical Results</h2>
+
+          <div class="error-triple-container">
+            <div class="error-sub-block">
+              <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^2$ Error</strong>
+              <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
+                $$e_{L^2} = \sqrt{\frac{\int_{\Omega} (Jq - Jq_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$$
+              </div>
+            </div>
+            <div class="error-sub-block">
+              <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative Mass Error</strong>
+              <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
+                $$\Delta M_{\text{rel}} = \frac{|\int_\Omega (Jq - Jq_0) d\Omega|}{\int_\Omega Jq_0 d\Omega}$$
+              </div>
+            </div>
+          </div>
+
+          <!-- Convergence Results Table (Table 1 and Table 2 grouped via rowspan=6) -->
+          <div class="table-container">
+            <table class="results-table">
+              <thead>
+                <tr>
+                  <th>Quad. pts.</th>
+                  <th>$N$</th>
+                  <th>ndiv</th>
+                  <th>DOFs</th>
+                  <th>$e_{L^2}$</th>
+                  <th>Order</th>
+                  <th>$\Delta M_{\text{rel}}$</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Table 1 Block (Rowspan 6) -->
+                <!-- Exp 1: Table 1, N=2 -->
+                <tr>
+                  <td rowspan="6">edge and interior pts.</td>
+                  <td rowspan="3">2</td>
+                  <td>16</td><td>20,480</td><td>7.450e-03</td><td>3.42</td><td>-1.15e-14</td>
+                </tr>
+                <tr>
+                  <td>32</td><td>81,920</td><td>5.221e-04</td><td>3.83</td><td>-2.44e-14</td>
+                </tr>
+                <tr class="exp-divider">
+                  <td>64</td><td>327,680</td><td>3.946e-05</td><td>3.73</td><td>-4.83e-14</td>
+                </tr>
+
+                <!-- Exp 2: Table 1, N=4 -->
+                <tr>
+                  <td rowspan="3">4</td>
+                  <td>16</td><td>45,056</td><td>1.677e-05</td><td>4.38</td><td>1.11e-14</td>
+                </tr>
+                <tr>
+                  <td>32</td><td>180,224</td><td>5.123e-07</td><td>5.03</td><td>1.97e-14</td>
+                </tr>
+                <tr class="exp-divider">
+                  <td>64</td><td>720,896</td><td>1.257e-08</td><td>5.35</td><td>3.51e-14</td>
+                </tr>
+
+                <!-- Table 2 Block (Rowspan 6) -->
+                <!-- Exp 3: Table 2, N=2 -->
+                <tr>
+                  <td rowspan="6">interior pts.</td>
+                  <td rowspan="3">2</td>
+                  <td>16</td><td>12,288</td><td>6.967e-04</td><td>4.45</td><td>1.28e-14</td>
+                </tr>
+                <tr>
+                  <td>32</td><td>49,152</td><td>3.267e-05</td><td>4.41</td><td>3.07e-14</td>
+                </tr>
+                <tr class="exp-divider">
+                  <td>64</td><td>196,608</td><td>2.934e-06</td><td>3.48</td><td>6.11e-14</td>
+                </tr>
+
+                <!-- Exp 4: Table 2, N=4 -->
+                <tr>
+                  <td rowspan="3">4</td>
+                  <td>16</td><td>32,768</td><td>3.333e-06</td><td>5.04</td><td>-3.01e-14</td>
+                </tr>
+                <tr>
+                  <td>32</td><td>131,072</td><td>1.048e-07</td><td>4.99</td><td>-6.01e-14</td>
+                </tr>
+                <tr>
+                  <td>64</td><td>524,288</td><td>2.994e-09</td><td>5.13</td><td>-1.30e-13</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 2 Result Figures Side-by-Side -->
+          <div class="results-images-grid">
+            <div class="img-container">
+              <img src="fig7_table1_split_upwind_k2_k4_l2_history.png" alt="L2 Error History">
+            </div>
+            <div class="img-container">
+              <img src="fig8_table1_table2_split_upwind_n2_n4_mass_history.png" alt="Relative Mass Error History">
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Conclusion -->
+        <div class="card">
+          <h2 class="card-title">6. Conclusion</h2>
+          <div class="placeholder-box" style="height: 50px;">
+            [ Conclusion Placeholder / 結論預留位 ]
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</body>
+</html>
