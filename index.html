@@ -297,7 +297,7 @@
     /* Side-by-side Images Grid for Section 5 (Aspect Ratio Based) */
     .results-images-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* Initial fallback, automatically updated by JS */
+      grid-template-columns: 1fr 1fr;
       gap: 5px;
       margin-top: 3px;
       align-items: start;
@@ -681,9 +681,11 @@
         <!-- 6. Conclusion -->
         <div class="card">
           <h2 class="card-title">6. Conclusion</h2>
-          <div class="placeholder-box" style="height: 100px;">
-            [ Conclusion Placeholder / 結論預留位 ]
-          </div>
+          <ul style="margin-left: 15px; font-size: 0.68rem; line-height: 1.38; padding-left: 2px;">
+            <li><strong>Singularity-Free Geometric Mapping:</strong> The octahedron-based spherical mapping eliminates coordinate pole singularities, providing uniform resolution across the sphere.</li>
+            <li><strong>Machine-Precision Conservation & Stability:</strong> The split-form DG scheme achieves exact mass conservation down to machine precision ($\Delta M_{\text{rel}} \sim 10^{-14}$) and ensures long-term numerical/energy stability.</li>
+            <li><strong>High-Order Convergence:</strong> Solid-body rotation tests confirm designed high-order convergence rates of at least $\mathcal{O}(h^{N+1})$ in relative $L^2$ error norms across different quadrature node configurations.</li>
+          </ul>
         </div>
 
       </div>
