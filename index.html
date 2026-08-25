@@ -404,7 +404,7 @@
         <div class="card">
           <h2 class="card-title">Abstract</h2>
           <p>
-            A split-form discontinuous Galerkin method on octahedral spherical meshes is developed to eliminate pole singularities and discrete chain rule errors. Numerical experiments demonstrate designed high-order accuracy and machine-precision mass conservation ($\sim 10^{-14}$) for spherical transport problems.
+            A discontinuous Galerkin method in split form is developed on octahedral spherical simplex meshes. Numerical experiments demonstrate designed high-order accuracy,consistent error reduction under mesh refinement across time, and machine-precision mass conservation ($\sim 10^{-14}$) for spherical transport problems.
           </p>
         </div>
 
@@ -477,10 +477,12 @@
               <!-- Block 2: Octahedral Mapping -->
               <div class="sub-card">
                 <span class="sub-card-title">2. Octahedral Mapping</span>
-                <div class="equation-container" style="font-size: 0.56rem; padding: 1px; width: 100%;">
-                  $$\mathbf{x}_s = R \frac{\mathbf{x}_{\text{flat}}}{\|\mathbf{x}_{\text{flat}}\|}$$
+                <div style="position: relative; width: 100%; margin: 2px 0;">
+                  <img src="Octahedral_Mapping_v3.png" alt="Octahedral Mapping" style="width: 100%; display: block;">
+                  <div class="equation-container" style="position: absolute; top: 4px; right: 4px; font-size: 0.56rem; padding: 2px 5px; background: rgba(248, 250, 252, 0.95); border: 1px solid #cbd5e1; border-radius: 3px; z-index: 2; margin: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                    $$\mathbf{x}_p = R \frac{\mathbf{x}_{\text{flat}}}{\|\mathbf{x}_{\text{flat}}\|}$$
+                  </div>
                 </div>
-                <img src="Octahedral_Mapping_v2.png" alt="Octahedral Mapping">
                 <div class="fig-title">Figure 2: Radial Projection Mapping</div>
               </div>
 
@@ -530,8 +532,16 @@
         <!-- References -->
         <div class="card">
           <h2 class="card-title">References</h2>
-          <div class="placeholder-box" style="height: 48px;">
-            [ References Placeholder / 參考文獻預留位 ]
+          <ol style="margin-left: 13px; font-size: 0.53rem; line-height: 1.22; color: #334155; margin-bottom: 3px;">
+            <li style="margin-bottom: 2px;">
+              T. Chen and C.-W. Shu, "Entropy stable high order discontinuous Galerkin methods with suitable quadrature rules on triangular meshes," <em>J. Comput. Phys.</em>, 345: 427–461, 2017.
+            </li>
+            <li style="margin-bottom: 2px;">
+              T. Chen and C.-W. Shu, "Review of entropy stable discontinuous Galerkin methods for systems of conservation laws on unstructured simplex meshes," <em>Commun. Comput. Phys.</em>, 2020.
+            </li>
+          </ol>
+          <div class="placeholder-box" style="height: 22px; font-size: 0.52rem;">
+            [ 幾何映射與平流測試案例相關文獻待補 / Mapping & Test Cases References Pending ]
           </div>
         </div>
 
@@ -580,7 +590,7 @@
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^2$ Error</strong>
               <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
-                $$e_{L^2} = \sqrt{\frac{\int_{\Omega} J(q - q_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$$
+                $$\|e\|_2 = \sqrt{\frac{\int_{\Omega} J(q - q_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$$
               </div>
             </div>
 
@@ -588,7 +598,7 @@
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^\infty$ Error</strong>
               <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
-                $$e_{L^\infty} = \frac{\max_{\Omega} J|q - q_{\text{ex}}|}{\max_{\Omega} J|q_{\text{ex}}|}$$
+                $$\|e\|_\infty = \frac{\max_{\Omega} J|q - q_{\text{ex}}|}{\max_{\Omega} J|q_{\text{ex}}|}$$
               </div>
             </div>
 
@@ -610,9 +620,9 @@
                   <th>$N$</th>
                   <th>ndiv</th>
                   <th>DOFs</th>
-                  <th>$e_{L^2}$</th>
+                  <th>$\|e\|_2$</th>
                   <th>Order</th>
-                  <th>$e_{L^\infty}$</th>
+                  <th>$\|e\|_\infty$</th>
                   <th>Order</th>
                   <th>$\Delta M_{\text{rel}}$</th>
                 </tr>
@@ -622,48 +632,48 @@
                 <tr>
                   <td rowspan="6" style="font-size: 0.58rem; font-weight: bold;">edge and interior pts.</td>
                   <td rowspan="3">2</td>
-                  <td>16</td><td>20,480</td><td>3.869e-03</td><td>3.55</td><td>x.xxxe-xx</td><td>x.xx</td><td>-5.87e-15</td>
+                  <td>16</td><td>20,480</td><td>3.869e-03</td><td>3.55</td><td>6.527e+00</td><td>3.08</td><td>-5.87e-15</td>
                 </tr>
                 <tr>
-                  <td>32</td><td>81,920</td><td>2.837e-04</td><td>3.77</td><td>x.xxxe-xx</td><td>x.xx</td><td>-1.21e-14</td>
+                  <td>32</td><td>81,920</td><td>2.837e-04</td><td>3.77</td><td>6.067e-01</td><td>3.43</td><td>-1.21e-14</td>
                 </tr>
                 <tr class="exp-divider">
-                  <td>64</td><td>327,680</td><td>2.415e-05</td><td>3.55</td><td>x.xxxe-xx</td><td>x.xx</td><td>-2.40e-14</td>
+                  <td>64</td><td>327,680</td><td>2.415e-05</td><td>3.55</td><td>9.860e-02</td><td>2.62</td><td>-2.40e-14</td>
                 </tr>
 
                 <tr>
                   <td rowspan="3">4</td>
-                  <td>16</td><td>45,056</td><td>1.198e-05</td><td>4.45</td><td>x.xxxe-xx</td><td>x.xx</td><td>5.47e-15</td>
+                  <td>16</td><td>45,056</td><td>1.198e-05</td><td>4.45</td><td>2.199e-02</td><td>4.29</td><td>5.47e-15</td>
                 </tr>
                 <tr>
-                  <td>32</td><td>180,224</td><td>4.220e-07</td><td>4.83</td><td>x.xxxe-xx</td><td>x.xx</td><td>1.00e-14</td>
+                  <td>32</td><td>180,224</td><td>4.220e-07</td><td>4.83</td><td>9.015e-04</td><td>4.61</td><td>1.00e-14</td>
                 </tr>
                 <tr class="exp-divider">
-                  <td>64</td><td>720,896</td><td>1.158e-08</td><td>5.19</td><td>x.xxxe-xx</td><td>x.xx</td><td>1.81e-14</td>
+                  <td>64</td><td>720,896</td><td>1.158e-08</td><td>5.19</td><td>2.434e-05</td><td>5.21</td><td>1.81e-14</td>
                 </tr>
 
                 <!-- Table 2 Block (Rowspan 6) -->
                 <tr>
                   <td rowspan="6" style="font-size: 0.58rem; font-weight: bold;">interior pts.</td>
                   <td rowspan="3">2</td>
-                  <td>16</td><td>12,288</td><td>4.008e-04</td><td>4.42</td><td>x.xxxe-xx</td><td>x.xx</td><td>6.27e-15</td>
+                  <td>16</td><td>12,288</td><td>4.008e-04</td><td>4.42</td><td>7.482e-01</td><td>4.31</td><td>6.27e-15</td>
                 </tr>
                 <tr>
-                  <td>32</td><td>49,152</td><td>2.669e-05</td><td>3.91</td><td>x.xxxe-xx</td><td>x.xx</td><td>1.52e-14</td>
+                  <td>32</td><td>49,152</td><td>2.669e-05</td><td>3.91</td><td>5.135e-02</td><td>3.87</td><td>1.52e-14</td>
                 </tr>
                 <tr class="exp-divider">
-                  <td>64</td><td>196,608</td><td>2.873e-06</td><td>3.22</td><td>x.xxxe-xx</td><td>x.xx</td><td>3.04e-14</td>
+                  <td>64</td><td>196,608</td><td>2.873e-06</td><td>3.22</td><td>6.326e-03</td><td>3.02</td><td>3.04e-14</td>
                 </tr>
 
                 <tr>
                   <td rowspan="3">4</td>
-                  <td>16</td><td>32,768</td><td>1.978e-06</td><td>5.07</td><td>x.xxxe-xx</td><td>x.xx</td><td>-1.51e-14</td>
+                  <td>16</td><td>32,768</td><td>1.978e-06</td><td>5.07</td><td>3.791e-03</td><td>4.90</td><td>-1.51e-14</td>
                 </tr>
                 <tr>
-                  <td>32</td><td>131,072</td><td>6.094e-08</td><td>5.02</td><td>x.xxxe-xx</td><td>x.xx</td><td>-2.99e-14</td>
+                  <td>32</td><td>131,072</td><td>6.094e-08</td><td>5.02</td><td>1.523e-04</td><td>4.64</td><td>-2.99e-14</td>
                 </tr>
                 <tr>
-                  <td>64</td><td>524,288</td><td>1.622e-09</td><td>5.23</td><td>x.xxxe-xx</td><td>x.xx</td><td>-6.45e-14</td>
+                  <td>64</td><td>524,288</td><td>1.622e-09</td><td>5.23</td><td>2.595e-06</td><td>5.88</td><td>-6.45e-14</td>
                 </tr>
               </tbody>
             </table>
@@ -680,13 +690,16 @@
           </div>
         </div>
 
-        <!-- 6. Conclusion -->
+        <!-- 6. Conclusions -->
         <div class="card">
-          <h2 class="card-title">6. Conclusion</h2>
-          <ul style="margin-left: 15px; font-size: 0.68rem; line-height: 1.38; padding-left: 2px;">
-            <li><strong>Singularity-Free Geometric Mapping:</strong> The octahedron-based spherical mapping eliminates coordinate pole singularities, providing uniform resolution across the sphere.</li>
-            <li><strong>Machine-Precision Conservation & Stability:</strong> The split-form DG scheme achieves exact mass conservation down to machine precision ($\Delta M_{\text{rel}} \sim 10^{-14}$) and ensures long-term numerical/energy stability.</li>
-            <li><strong>High-Order Convergence:</strong> Solid-body rotation tests confirm designed high-order convergence rates of at least $\mathcal{O}(h^{N+1})$ in relative $L^2$ error norms across different quadrature node configurations.</li>
+          <h2 class="card-title">6. Conclusions</h2>
+          <p style="margin-bottom: 3px; font-size: 0.68rem;">
+            This study evaluates a discontinuous Galerkin method in split form for spherical transport problems on octahedral meshes. The main findings and advantages are summarized as follows:
+          </p>
+          <ul style="margin-left: 12px; font-size: 0.67rem; line-height: 1.32;">
+            <li><strong>Singularity-Free Geometric Mapping:</strong> Eliminates coordinate pole singularities, providing uniform resolution across the sphere.</li>
+            <li><strong>Machine-Precision Conservation & Stability:</strong> Achieves exact mass conservation down to machine precision ($\Delta M_{\text{rel}} \sim 10^{-14}$) and ensures long-term numerical stability.</li>
+            <li><strong>High-Order Convergence:</strong> Solid-body rotation tests confirm designed convergence rates of at least $\mathcal{O}(h^{N+1})$ in relative $L^2$ error norms across all node sets.</li>
           </ul>
         </div>
 
