@@ -177,7 +177,7 @@
     /* Section 2 Side-by-Side Layout with Vertical Divider Line */
     .section2-grid {
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
       align-items: stretch;
     }
@@ -190,7 +190,7 @@
     /* Section 3 Custom 2-Column Layout */
     .section3-grid-custom {
       display: grid;
-      grid-template-columns: 1fr 1.12fr;
+      grid-template-columns: 1fr 1fr;
       gap: 6px;
       margin-top: 3px;
     }
@@ -404,7 +404,7 @@
         <div class="card">
           <h2 class="card-title">Abstract</h2>
           <p>
-            A discontinuous Galerkin method in split form is developed on octahedral spherical simplex meshes. Numerical experiments demonstrate designed high-order accuracy,consistent error reduction under mesh refinement across time, and machine-precision mass conservation ($\sim 10^{-14}$) for spherical transport problems.
+            A discontinuous Galerkin method in split form is developed on octahedral spherical simplex meshes. Numerical experiments demonstrate designed high-order accuracy, consistent error reduction under mesh refinement across time, and machine-precision mass conservation ($\sim 10^{-14}$) for spherical transport problems.
           </p>
         </div>
 
@@ -518,7 +518,7 @@
               </div>
 
               <!-- Combined Figure -->
-              <img src="Wind_Field_v4.jpg" alt="Field Advection and Wind Vectors" style="margin-top: 1px;">
+              <img src="Wind_Field_v6.png" alt="Field Advection and Wind Vectors" style="margin-top: 1px;">
               <div class="fig-title" style="line-height: 1.2; font-size: 0.50rem; margin-top: 1px;">
                 Figure 3: Advection snapshot with wind vectors ($\rightarrow$).<br>
                 Dashed contours denote initial state ($t = 0$), and solid surface shows half-period position ($t = 6\text{ d}$).
@@ -532,17 +532,20 @@
         <!-- References -->
         <div class="card">
           <h2 class="card-title">References</h2>
-          <ol style="margin-left: 13px; font-size: 0.53rem; line-height: 1.22; color: #334155; margin-bottom: 3px;">
+          <ol style="margin-left: 13px; font-size: 0.47rem; line-height: 1.22; color: #334155; margin-bottom: 2px;">
             <li style="margin-bottom: 2px;">
               T. Chen and C.-W. Shu, "Entropy stable high order discontinuous Galerkin methods with suitable quadrature rules on triangular meshes," <em>J. Comput. Phys.</em>, 345: 427–461, 2017.
             </li>
             <li style="margin-bottom: 2px;">
               T. Chen and C.-W. Shu, "Review of entropy stable discontinuous Galerkin methods for systems of conservation laws on unstructured simplex meshes," <em>Commun. Comput. Phys.</em>, 2020.
             </li>
+            <li style="margin-bottom: 2px;">
+              J. S. Hesthaven and T. Warburton, <em>Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and Applications</em>, Springer Science & Business Media, 2008.
+            </li>
+            <li style="margin-bottom: 2px;">
+              M. H. Carpenter and C. A. Kennedy, "Fourth-order 2N-storage Runge-Kutta schemes," Technical Report NASA-TM-109112, NASA Langley Research Center, 1994.
+            </li>
           </ol>
-          <div class="placeholder-box" style="height: 22px; font-size: 0.52rem;">
-            [ 幾何映射與平流測試案例相關文獻待補 / Mapping & Test Cases References Pending ]
-          </div>
         </div>
 
       </div>
