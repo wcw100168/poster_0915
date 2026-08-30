@@ -382,7 +382,7 @@
 
     <!-- Title Section Overlay -->
     <section class="title-overlay">
-      <h1 class="paper-title">A Split-Form Discontinuous Galerkin Method<br>for Spherical Advection on Octahedral Meshes</h1>
+      <h1 class="paper-title">A Discontinuous Galerkin Method for Spherical Advection <br>on Octahedral Meshes Using Split-Form Formulations</h1>
       <div class="authors">
         Student: Yu Sheng, Chiu<sup>1</sup>, Chi Wei, Wang<sup>2</sup>, Po Hsun, Liu<sup>3</sup> &nbsp;|&nbsp; Advisor: Prof. Chun-Hao Teng<sup>1</sup>
       </div>
@@ -404,7 +404,7 @@
         <div class="card">
           <h2 class="card-title">Abstract</h2>
           <p>
-            A discontinuous Galerkin method in split form is developed on octahedral spherical simplex meshes. Numerical experiments demonstrate designed high-order accuracy, consistent error reduction under mesh refinement across time, and machine-precision mass conservation ($\sim 10^{-14}$) for spherical transport problems.
+            A discontinuous Galerkin method in split form is developed for the spherical scalar advection equation on octahedral spherical simplex meshes. Numerical experiments demonstrate designed high-order accuracy, consistent error reduction under mesh refinement across time, and machine-precision mass conservation for spherical transport problems.
           </p>
         </div>
 
@@ -438,11 +438,11 @@
             <!-- Right Side: Split Form -->
             <div>
               <p>The mapped conservation law can be rewritten as the split form</p>
-              <div class="equation-container" style="padding: 2px 1px; font-size: 0.59rem; text-align: left;">
-                $$\begin{aligned}
+              <div class="equation-container" style="padding: 1px 2px; margin: 1px 0; font-size: 0.67rem; text-align: center; display: flex; justify-content: center; align-items: center;">
+                $\begin{aligned}
                 J\frac{\partial q}{\partial t} &+ \frac{1}{2}\Bigg[\frac{\partial(Ju^r q)}{\partial r} + Ju^r\frac{\partial q}{\partial r} + q\frac{\partial(Ju^r)}{\partial r} \\
                 &\quad + \frac{\partial(Ju^s q)}{\partial s} + Ju^s\frac{\partial q}{\partial s} + q\frac{\partial(Ju^s)}{\partial s}\Bigg] = 0.
-                \end{aligned}$$
+                \end{aligned}$
               </div>
             </div>
           </div>
@@ -478,7 +478,7 @@
               <div class="sub-card">
                 <span class="sub-card-title">2. Octahedral Mapping</span>
                 <div style="position: relative; width: 100%; margin: 2px 0;">
-                  <img src="Octahedral_Mapping_v3.png" alt="Octahedral Mapping" style="width: 100%; display: block;">
+                  <img src="Octahedral_Mapping_v4.png" alt="Octahedral Mapping" style="width: 100%; display: block;">
                   <div class="equation-container" style="position: absolute; top: 4px; right: 4px; font-size: 0.56rem; padding: 2px 5px; background: rgba(248, 250, 252, 0.95); border: 1px solid #cbd5e1; border-radius: 3px; z-index: 2; margin: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
                     $$\mathbf{x}_p = R \frac{\mathbf{x}_{\text{flat}}}{\|\mathbf{x}_{\text{flat}}\|}$$
                   </div>
@@ -518,7 +518,7 @@
               </div>
 
               <!-- Combined Figure -->
-              <img src="Wind_Field_v6.png" alt="Field Advection and Wind Vectors" style="margin-top: 1px;">
+              <img src="Wind_Field_v8.jpg" alt="Field Advection and Wind Vectors" style="margin-top: 1px;">
               <div class="fig-title" style="line-height: 1.2; font-size: 0.50rem; margin-top: 1px;">
                 Figure 3: Advection snapshot with wind vectors ($\rightarrow$).<br>
                 Dashed contours denote initial state ($t = 0$), and solid surface shows half-period position ($t = 6\text{ d}$).
@@ -557,31 +557,43 @@
         <div class="card">
           <h2 class="card-title">4. Discrete Formulation</h2>
 
-          <div class="sub-heading">Quadrature-Nodal Operators</div>
-          <div class="equation-container" style="font-size: 0.63rem;">
-            $$V_{ij}=\phi_j(r_i,s_i), \quad (V_b^\gamma)_{ij} = \phi_j(r_i^\gamma,s_i^\gamma), \quad (V_m)_{ij}=\frac{\partial\phi_j(r_i^\gamma,s_i^\gamma)}{\partial m}, \quad P=(V^T W V)^{-1}V^T W$$
-          </div>
-          <div class="equation-container" style="font-size: 0.64rem;">
-            $$D_r=V_rP, \quad D_s=V_sP, \quad R^\gamma=V_b^\gamma P, \quad L^\gamma = \frac{1}{J} W^{-1} (R^\gamma)^T W_b$$
+          <!-- 上方：Quadrature-Nodal Operators -->
+          <div class="sub-heading" style="margin-top: 1px; margin-bottom: 1px;">Quadrature-Nodal Operators</div>
+          <div class="equation-container" style="padding: 1px 3px; margin: 1px 0; font-size: 0.67rem; text-align: center; line-height: 2.75;">
+            $\begin{aligned}
+            V_{ij} = \phi_j(r_i,s_i), \quad (V_b^\gamma)_{ij} = \phi_j(r_i^\gamma,s_i^\gamma), \quad (V_m)_{ij}=\frac{\partial\phi_j(r_i^\gamma,s_i^\gamma)}{\partial m}, \quad P = (V^T W V)^{-1}V^T W  \\[1px]
+            \end{aligned}$
+            $D_r = V_r P, \quad D_s=V_s P, \quad R^\gamma=V_b^\gamma P, \quad L^\gamma = \frac{1}{J} W^{-1} (R^\gamma)^T W_b
+            $
           </div>
 
-          <div class="sub-heading">Split-Form DG Discretization</div>
-          <div class="equation-container" style="font-size: 0.58rem; text-align: left; padding: 2px 3px;">
-            $$\begin{aligned}
+          <!-- 中間：Split-Form DG Discretization & Boundary Flux -->
+          <div class="sub-heading" style="margin-top: 3px; margin-bottom: 1px;">Split-Form DG Discretization</div>
+          <div class="equation-container" style="padding: 1px 3px; margin: 1px 0; font-size: 0.67rem; text-align: center; line-height: 1.2;">
+            $\begin{aligned}
             \frac{d\mathbf q}{dt} ={}& -\frac{1}{2J} \Big[
             D_r\big((Ju^r)\odot\mathbf q\big) + (Ju^r)\odot D_r\mathbf q + \mathbf q\odot D_r(Ju^r) \\
-            &+ D_s\big((Ju^s)\odot\mathbf q\big) + (Ju^s)\odot D_s\mathbf q + \mathbf q\odot D_s(Ju^s)
-            \Big] + \sum_{\gamma\subset\partial T} L^\gamma p^\gamma
-            \end{aligned}$$
-          </div>
-          <div class="equation-container" style="font-size: 0.55rem; text-align: left; padding: 2px 3px;">
-            $$p^\gamma = \frac{1}{2} \bigg[n_r^\gamma R^\gamma(J u^r \odot \mathbf{q}) + n_s^\gamma R^\gamma(J u^s \odot \mathbf{q}) + [n_r^\gamma R^\gamma(J u^r) + n_s^\gamma R^\gamma(J u^s) ] \odot (R^\gamma \mathbf{q})\bigg] - F^{*,\gamma}$$
+            &\quad + D_s\big((Ju^s)\odot\mathbf q\big) + (Ju^s)\odot D_s\mathbf q + \mathbf q\odot D_s(Ju^s)
+            \Big] + \sum_{\gamma\subset\partial T} L^\gamma p^\gamma \\[2px]
+            \end{aligned}$
+            $p^\gamma ={} \frac{1}{2} \Big[n_r^\gamma R^\gamma(J u^r \odot \mathbf{q}) + n_s^\gamma R^\gamma(J u^s \odot \mathbf{q}) + [n_r^\gamma R^\gamma(J u^r) + n_s^\gamma R^\gamma(J u^s) ] \odot (R^\gamma \mathbf{q})\Big] - F^{*,\gamma}$
           </div>
 
-          <div class="sub-heading">Time Integration</div>
-          <div class="equation-container" style="font-size: 0.65rem;">
-            $$\frac{d\mathbf q}{dt} = \mathcal{R}(\mathbf q,t), \qquad \mathbf{\text{LSRK54 : 5-stage, 4th-order}}$$
+          <!-- 下方：Time Integration -->
+          <div class="sub-heading" style="margin-top: 3px; margin-bottom: 1px;">Time Integration (LSRK54) & Time Step</div>
+          <div style="display: flex; gap: 5px; align-items: stretch; margin: 1px 0;">
+            <!-- 左側：LSRK54 推進 -->
+            <div class="equation-container" style="flex: 1; padding: 2px 4px; margin: 0; font-size: 0.61rem; display: flex; align-items: center; justify-content: center;">
+              $$\forall j = 1, 2, 3, 4, 5, \quad \begin{cases} dU_j = A_j dU_{j-1} + \Delta t F(U_{j-1}, t_n + C_j \Delta t) \\ U_j = U_{j-1} + B_j dU_j \end{cases}$$
+            </div>
+            <!-- 右側：dt 公式 -->
+            <div class="equation-container" style="flex: 0.5; padding: 2px 4px; margin: 0; font-size: 0.61rem; display: flex; align-items: center; justify-content: center;">
+              $$\Delta t = \text{CFL} \cdot \frac{h_{\min}}{N^2 \|\mathbf{u}\|_{\max}}$$
+            </div>
           </div>
+          <p style="font-size: 0.58rem; line-height: 1.22; margin-top: 2px; color: #334155; text-align: justify;">
+            Here, $A_j$ and $B_j$ are the low-storage stage coefficients, $C_j$ denotes the intermediate time levels, and the time step $\Delta t$ is determined by the CFL condition with $\text{CFL} = 1.0$ and maximum advection speed $\|\mathbf{u}\|_{\max} = \omega R \approx 38.61\text{ m/s}$.
+          </p>
         </div>
 
         <!-- 5. Numerical Results (3 Error Blocks Side-by-Side - Original Font Sizes) -->
@@ -592,7 +604,7 @@
             <!-- 1. Relative L2 Error -->
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^2$ Error</strong>
-              <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
+              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
                 $$\|e\|_2 = \sqrt{\frac{\int_{\Omega} J(q - q_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$$
               </div>
             </div>
@@ -600,16 +612,16 @@
             <!-- 2. Relative Linf Error -->
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^\infty$ Error</strong>
-              <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
-                $$\|e\|_\infty = \frac{\max_{\Omega} J|q - q_{\text{ex}}|}{\max_{\Omega} J|q_{\text{ex}}|}$$
+              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
+                $$\|e\|_\infty = \frac{\max_{\Omega} |q - q_{\text{ex}}|}{\max_{\Omega} |q_{\text{ex}}|}$$
               </div>
             </div>
 
             <!-- 3. Relative Mass Error -->
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative Mass Error</strong>
-              <div class="equation-container" style="font-size: 0.52rem; padding: 0; border: none; background: transparent;">
-                $$\Delta M_{\text{rel}} = \frac{|\int_\Omega J(q - q_0) d\Omega|}{\int_\Omega Jq_0 d\Omega}$$
+              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
+                $$\Delta M_{\text{rel}} = \frac{\int_\Omega J(q - q_0) d\Omega}{\int_\Omega Jq_0 d\Omega}$$
               </div>
             </div>
           </div>
@@ -635,48 +647,48 @@
                 <tr>
                   <td rowspan="6" style="font-size: 0.58rem; font-weight: bold;">edge and interior pts.</td>
                   <td rowspan="3">2</td>
-                  <td>16</td><td>20,480</td><td>3.869e-03</td><td>3.55</td><td>6.527e+00</td><td>3.08</td><td>-5.87e-15</td>
+                  <td>16</td><td>20,480</td><td>3.869e-03</td><td>3.55</td><td>6.527e-03</td><td>3.08</td><td>-5.87e-15</td>
                 </tr>
                 <tr>
-                  <td>32</td><td>81,920</td><td>2.837e-04</td><td>3.77</td><td>6.067e-01</td><td>3.43</td><td>-1.21e-14</td>
+                  <td>32</td><td>81,920</td><td>2.837e-04</td><td>3.77</td><td>6.067e-04</td><td>3.43</td><td>-1.21e-14</td>
                 </tr>
                 <tr class="exp-divider">
-                  <td>64</td><td>327,680</td><td>2.415e-05</td><td>3.55</td><td>9.860e-02</td><td>2.62</td><td>-2.40e-14</td>
+                  <td>64</td><td>327,680</td><td>2.415e-05</td><td>3.55</td><td>9.860e-05</td><td>2.62</td><td>-2.40e-14</td>
                 </tr>
 
                 <tr>
                   <td rowspan="3">4</td>
-                  <td>16</td><td>45,056</td><td>1.198e-05</td><td>4.45</td><td>2.199e-02</td><td>4.29</td><td>5.47e-15</td>
+                  <td>16</td><td>45,056</td><td>1.198e-05</td><td>4.45</td><td>2.199e-05</td><td>4.29</td><td>5.47e-15</td>
                 </tr>
                 <tr>
-                  <td>32</td><td>180,224</td><td>4.220e-07</td><td>4.83</td><td>9.015e-04</td><td>4.61</td><td>1.00e-14</td>
+                  <td>32</td><td>180,224</td><td>4.220e-07</td><td>4.83</td><td>9.015e-07</td><td>4.61</td><td>1.00e-14</td>
                 </tr>
                 <tr class="exp-divider">
-                  <td>64</td><td>720,896</td><td>1.158e-08</td><td>5.19</td><td>2.434e-05</td><td>5.21</td><td>1.81e-14</td>
+                  <td>64</td><td>720,896</td><td>1.158e-08</td><td>5.19</td><td>2.434e-08</td><td>5.21</td><td>1.81e-14</td>
                 </tr>
 
                 <!-- Table 2 Block (Rowspan 6) -->
                 <tr>
                   <td rowspan="6" style="font-size: 0.58rem; font-weight: bold;">interior pts.</td>
                   <td rowspan="3">2</td>
-                  <td>16</td><td>12,288</td><td>4.008e-04</td><td>4.42</td><td>7.482e-01</td><td>4.31</td><td>6.27e-15</td>
+                  <td>16</td><td>12,288</td><td>4.008e-04</td><td>4.42</td><td>7.482e-04</td><td>4.31</td><td>6.27e-15</td>
                 </tr>
                 <tr>
-                  <td>32</td><td>49,152</td><td>2.669e-05</td><td>3.91</td><td>5.135e-02</td><td>3.87</td><td>1.52e-14</td>
+                  <td>32</td><td>49,152</td><td>2.669e-05</td><td>3.91</td><td>5.135e-05</td><td>3.87</td><td>1.52e-14</td>
                 </tr>
                 <tr class="exp-divider">
-                  <td>64</td><td>196,608</td><td>2.873e-06</td><td>3.22</td><td>6.326e-03</td><td>3.02</td><td>3.04e-14</td>
+                  <td>64</td><td>196,608</td><td>2.873e-06</td><td>3.22</td><td>6.326e-06</td><td>3.02</td><td>3.04e-14</td>
                 </tr>
 
                 <tr>
                   <td rowspan="3">4</td>
-                  <td>16</td><td>32,768</td><td>1.978e-06</td><td>5.07</td><td>3.791e-03</td><td>4.90</td><td>-1.51e-14</td>
+                  <td>16</td><td>32,768</td><td>1.978e-06</td><td>5.07</td><td>3.791e-06</td><td>4.90</td><td>-1.51e-14</td>
                 </tr>
                 <tr>
-                  <td>32</td><td>131,072</td><td>6.094e-08</td><td>5.02</td><td>1.523e-04</td><td>4.64</td><td>-2.99e-14</td>
+                  <td>32</td><td>131,072</td><td>6.094e-08</td><td>5.02</td><td>1.523e-07</td><td>4.64</td><td>-2.99e-14</td>
                 </tr>
                 <tr>
-                  <td>64</td><td>524,288</td><td>1.622e-09</td><td>5.23</td><td>2.595e-06</td><td>5.88</td><td>-6.45e-14</td>
+                  <td>64</td><td>524,288</td><td>1.622e-09</td><td>5.23</td><td>2.595e-09</td><td>5.88</td><td>-6.45e-14</td>
                 </tr>
               </tbody>
             </table>
