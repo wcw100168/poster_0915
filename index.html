@@ -478,7 +478,7 @@
               <div class="sub-card">
                 <span class="sub-card-title">2. Octahedral Mapping</span>
                 <div style="position: relative; width: 100%; margin: 2px 0;">
-                  <img src="Octahedral_Mapping_v4.png" alt="Octahedral Mapping" style="width: 100%; display: block;">
+                  <img src="Octahedral_Mapping_v5.png" alt="Octahedral Mapping" style="width: 100%; display: block;">
                   <div class="equation-container" style="position: absolute; top: 4px; right: 4px; font-size: 0.56rem; padding: 2px 5px; background: rgba(248, 250, 252, 0.95); border: 1px solid #cbd5e1; border-radius: 3px; z-index: 2; margin: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
                     $$\mathbf{x}_p = R \frac{\mathbf{x}_{\text{flat}}}{\|\mathbf{x}_{\text{flat}}\|}$$
                   </div>
@@ -545,6 +545,9 @@
             <li style="margin-bottom: 2px;">
               M. H. Carpenter and C. A. Kennedy, "Fourth-order 2N-storage Runge-Kutta schemes," Technical Report NASA-TM-109112, NASA Langley Research Center, 1994.
             </li>
+            <li style="margin-bottom: 2px;">
+              E. Praun and H. Hoppe, "Spherical Parametrization and Remeshing," <em>ACM Transactions on Graphics (SIGGRAPH 2003)</em>, 22(3): 340–349, 2003.
+            </li>
           </ol>
         </div>
 
@@ -605,7 +608,7 @@
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^2$ Error</strong>
               <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
-                $$\|e\|_2 = \sqrt{\frac{\int_{\Omega} J(q - q_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$$
+                $\|e\|_2 = \sqrt{\frac{\int_{\Omega} J(q - q_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$
               </div>
             </div>
 
@@ -613,7 +616,7 @@
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^\infty$ Error</strong>
               <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
-                $$\|e\|_\infty = \frac{\max_{\Omega} |q - q_{\text{ex}}|}{\max_{\Omega} |q_{\text{ex}}|}$$
+                $\|e\|_\infty = \frac{\max_{\Omega} |q - q_{\text{ex}}|}{\max_{\Omega} |q_{\text{ex}}|}$
               </div>
             </div>
 
@@ -621,7 +624,7 @@
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative Mass Error</strong>
               <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
-                $$\Delta M_{\text{rel}} = \frac{\int_\Omega J(q - q_0) d\Omega}{\int_\Omega Jq_0 d\Omega}$$
+                $\Delta M_{\text{rel}} = \frac{\int_\Omega J(q - q_0) d\Omega}{\int_\Omega Jq_0 d\Omega}$
               </div>
             </div>
           </div>
@@ -643,9 +646,9 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- Table 1 Block (Rowspan 6) -->
+                <!-- Table 1 Block (Rowspan 9) -->
                 <tr>
-                  <td rowspan="6" style="font-size: 0.58rem; font-weight: bold;">edge and interior pts.</td>
+                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">edge and interior pts.</td>
                   <td rowspan="3">2</td>
                   <td>16</td><td>20,480</td><td>3.869e-03</td><td>3.55</td><td>6.527e-03</td><td>3.08</td><td>-5.87e-15</td>
                 </tr>
@@ -654,6 +657,17 @@
                 </tr>
                 <tr class="exp-divider">
                   <td>64</td><td>327,680</td><td>2.415e-05</td><td>3.55</td><td>9.860e-05</td><td>2.62</td><td>-2.40e-14</td>
+                </tr>
+
+                <tr>
+                  <td rowspan="3">3</td>
+                  <td>16</td><td>36,864</td><td>1.035e-04</td><td>4.22</td><td>2.178e-04</td><td>3.79</td><td>-1.07e-15</td>
+                </tr>
+                <tr>
+                  <td>32</td><td>147,456</td><td>5.210e-06</td><td>4.31</td><td>2.040e-05</td><td>3.42</td><td>-1.47e-15</td>
+                </tr>
+                <tr class="exp-divider">
+                  <td>64</td><td>589,824</td><td>2.549e-07</td><td>4.35</td><td>1.200e-06</td><td>4.09</td><td>-4.40e-15</td>
                 </tr>
 
                 <tr>
@@ -667,9 +681,9 @@
                   <td>64</td><td>720,896</td><td>1.158e-08</td><td>5.19</td><td>2.434e-08</td><td>5.21</td><td>1.81e-14</td>
                 </tr>
 
-                <!-- Table 2 Block (Rowspan 6) -->
+                <!-- Table 2 Block (Rowspan 9) -->
                 <tr>
-                  <td rowspan="6" style="font-size: 0.58rem; font-weight: bold;">interior pts.</td>
+                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">interior pts.</td>
                   <td rowspan="3">2</td>
                   <td>16</td><td>12,288</td><td>4.008e-04</td><td>4.42</td><td>7.482e-04</td><td>4.31</td><td>6.27e-15</td>
                 </tr>
@@ -678,6 +692,17 @@
                 </tr>
                 <tr class="exp-divider">
                   <td>64</td><td>196,608</td><td>2.873e-06</td><td>3.22</td><td>6.326e-06</td><td>3.02</td><td>3.04e-14</td>
+                </tr>
+
+                <tr>
+                  <td rowspan="3">3</td>
+                  <td>16</td><td>24,576</td><td>3.266e-05</td><td>4.36</td><td>4.690e-05</td><td>4.67</td><td>-2.13e-14</td>
+                </tr>
+                <tr>
+                  <td>32</td><td>98,304</td><td>1.932e-06</td><td>4.08</td><td>2.862e-06</td><td>4.03</td><td>-4.39e-14</td>
+                </tr>
+                <tr class="exp-divider">
+                  <td>64</td><td>393,216</td><td>1.133e-07</td><td>4.09</td><td>1.750e-07</td><td>4.03</td><td>-8.75e-14</td>
                 </tr>
 
                 <tr>
@@ -714,7 +739,7 @@
           <ul style="margin-left: 12px; font-size: 0.67rem; line-height: 1.32;">
             <li><strong>Singularity-Free Geometric Mapping:</strong> Eliminates coordinate pole singularities, providing uniform resolution across the sphere.</li>
             <li><strong>Machine-Precision Conservation & Stability:</strong> Achieves exact mass conservation down to machine precision ($\Delta M_{\text{rel}} \sim 10^{-14}$) and ensures long-term numerical stability.</li>
-            <li><strong>High-Order Convergence:</strong> Solid-body rotation tests confirm designed convergence rates of at least $\mathcal{O}(h^{N+1})$ in relative $L^2$ error norms across all node sets.</li>
+            <li><strong>High-Order Convergence:</strong> Solid-body rotation tests demonstrate that relative \(L^2\) error convergence rates surpass the sub-optimal convergence rate of \(O(h^{N+1/2})\), achieving the optimal \(O(h^{N+1})\) rate asymptotically across all node sets.</li>
           </ul>
         </div>
 
