@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>A Split-Form Discontinuous Galerkin Method for Spherical Advection on Octahedral Meshes</title>
+  <title>A Discontinuous Galerkin Method for Spherical Advection in Split Form on Octahedral Meshes</title>
 
   <!-- MathJax Configuration -->
   <script>
@@ -190,7 +190,7 @@
     /* Section 3 Custom 2-Column Layout */
     .section3-grid-custom {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 0.95fr;
       gap: 6px;
       margin-top: 3px;
     }
@@ -382,15 +382,15 @@
 
     <!-- Title Section Overlay -->
     <section class="title-overlay">
-      <h1 class="paper-title">A Discontinuous Galerkin Method for Spherical Advection <br>on Octahedral Meshes Using Split-Form Formulations</h1>
+      <h1 class="paper-title">A Discontinuous Galerkin Scheme for Solving the Spherical Advection Equation <br> in Split Form on Octahedral Meshes</h1>
       <div class="authors">
-        Student: Yu Sheng, Chiu<sup>1</sup>, Chi Wei, Wang<sup>2</sup>, Po Hsun, Liu<sup>3</sup> &nbsp;|&nbsp; Advisor: Prof. Chun-Hao Teng<sup>1</sup>
+        Students: Yu-Sheng Chiu<sup>1</sup>, Chi-Wei Wang<sup>2</sup>, Po-Hsun Liu<sup>3</sup> &nbsp;|&nbsp; Advisor: Prof. Chun-Hao Teng<sup>1</sup>
       </div>
       <div class="affiliations">
         <sup>1,2,3</sup>Department of Applied Mathematics, National Chung Hsing University
       </div>
       <div class="email">
-        通訊作者: s112053101@smail.nchu.edu.tw
+        Corresponding author: s112053101@smail.nchu.edu.tw
       </div>
     </section>
 
@@ -404,7 +404,7 @@
         <div class="card">
           <h2 class="card-title">Abstract</h2>
           <p>
-            A discontinuous Galerkin method in split form is developed for the spherical scalar advection equation on octahedral spherical simplex meshes. Numerical experiments demonstrate designed high-order accuracy, consistent error reduction under mesh refinement across time, and machine-precision mass conservation for spherical transport problems.
+            A discontinuous Galerkin (DG) method is developed for the spherical scalar advection equation in split form on octahedral spherical simplex meshes. Numerical experiments demonstrate the designed order of accuracy, consistent error reduction under mesh refinement over time, and machine-precision mass conservation for spherical transport problems.
           </p>
         </div>
 
@@ -412,32 +412,29 @@
         <div class="card">
           <h2 class="card-title">1. Introduction</h2>
           <p>
-            Scalar transport on the sphere is widely used in atmospheric and geophysical applications, while longitude–latitude coordinates suffer from singularities at the poles. To avoid this issue, we adopt an octahedron-based triangular manifold mesh.
+            Scalar transport on the sphere arises in many atmospheric and geophysical applications, but standard longitude–latitude coordinates suffer from singularities at the poles. To avoid this issue, we adopt an octahedron-based triangular manifold mesh [1].
           </p>
           <p>
-            Since quadrature-nodal DG discretizations generally do not preserve the continuous chain rule or product rule, a <span class="highlight-text">split formulation</span> is introduced to correct the discrete structure of the conservation form. Its numerical behavior is then evaluated through the time evolution of mass and $L_2$ errors.
+            Since quadrature-nodal DG discretizations generally do not preserve the continuous chain rule or product rule, a <span class="highlight-text">split formulation</span> [2] is introduced to correct the discrete structure of the conservation form. Its numerical behavior is then evaluated through the time evolution of the mass-conservation and $L^2$ errors.
           </p>
         </div>
 
-        <!-- 2. Mathematical Formulation (Vertical Divider Line) -->
+        <!-- 2. Mathematical Formulation -->
         <div class="card">
           <h2 class="card-title">2. Mathematical Formulation</h2>
           
           <div class="section2-grid">
             <!-- Left Side: Conservation Form -->
             <div class="section2-left-col">
-              <p>The mapping conservation law is written as</p>
+              <p>The conservation law in mapped coordinates is written as</p>
               <div class="equation-container" style="padding: 2px 1px; font-size: 0.67rem;">
                 $$\frac{\partial(Jq)}{\partial t} + \frac{\partial(Ju^r q)}{\partial r} + \frac{\partial(Ju^s q)}{\partial s} = 0.$$
               </div>
-              <p style="margin-top: 2px; font-size: 0.68rem;">
-                Here, $J$ is the surface Jacobian, while $u^r$ and $u^s$ are the contravariant velocity components.
-              </p>
             </div>
 
             <!-- Right Side: Split Form -->
             <div>
-              <p>The mapped conservation law can be rewritten as the split form</p>
+              <p>It can be rewritten in split form as</p>
               <div class="equation-container" style="padding: 1px 2px; margin: 1px 0; font-size: 0.67rem; text-align: center; display: flex; justify-content: center; align-items: center;">
                 $\begin{aligned}
                 J\frac{\partial q}{\partial t} &+ \frac{1}{2}\Bigg[\frac{\partial(Ju^r q)}{\partial r} + Ju^r\frac{\partial q}{\partial r} + q\frac{\partial(Ju^r)}{\partial r} \\
@@ -446,6 +443,11 @@
               </div>
             </div>
           </div>
+
+          <!-- Spanning across both columns -->
+          <p style="margin-top: 4px; font-size: 0.68rem; text-align: justify;">
+            Here, $J$ is the surface Jacobian, and $u^r$ and $u^s$ are the contravariant velocity components.
+          </p>
         </div>
 
         <!-- 3. Mesh Mapping & Field Setup -->
@@ -460,7 +462,7 @@
               <!-- Block 1: Mesh & Quadrature Nodes -->
               <div class="sub-card">
                 <span class="sub-card-title">1. Mesh & Quadrature Nodes</span>
-                <p style="font-size: 0.58rem; margin: 1px 0;">Symmetric node sets ($N=1 \sim 4$):</p>
+                <p style="font-size: 0.58rem; margin: 1px 0;">Symmetric node sets ($N = 2\text{–}4$) [3]:</p>
                 <div style="display: flex; flex-direction: column; gap: 1px; align-items: center; width: 100%;">
                   <div style="text-align: center; width: 100%;">
                     <img src="table1.png" alt="Nodes Set A">
@@ -476,7 +478,7 @@
 
               <!-- Block 2: Octahedral Mapping -->
               <div class="sub-card">
-                <span class="sub-card-title">2. Octahedral Mapping</span>
+                <span class="sub-card-title">2. Octahedral Mapping [1]</span>
                 <div style="position: relative; width: 100%; margin: 2px 0;">
                   <img src="Octahedral_Mapping_v5.png" alt="Octahedral Mapping" style="width: 100%; display: block;">
                   <div class="equation-container" style="position: absolute; top: 4px; right: 4px; font-size: 0.56rem; padding: 2px 5px; background: rgba(248, 250, 252, 0.95); border: 1px solid #cbd5e1; border-radius: 3px; z-index: 2; margin: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
@@ -494,21 +496,21 @@
               
               <!-- Initial Field Details -->
               <div style="width: 100%; text-align: center;">
-                <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">3D Gaussian Bell ($q_{\max} = 1000$)</p>
+                <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">3D Gaussian hill ($q_{\max} = 1000$)</p>
                 <div class="equation-container" style="font-size: 0.55rem; padding: 1px; width: 100%; margin: 1px 0;">
                   $$q_0(\mathbf{x}) = 1000 \exp(-\sigma r^2), \quad r = \arccos(\mathbf{x} \cdot \mathbf{x}_c)$$
                 </div>
                 <p style="font-size: 0.52rem; color: #334155; margin: 0;">
-                  Center $\mathbf{x}_c = (R, 0, 0)^T$, where $R=6.371 \times 10^6$ m is the radius of the Earth, decay factor $\sigma = 10.0$.
+                  Center $\mathbf{x}_c = (R, 0, 0)^T$ where $R = 6.371 \times 10^6\text{ m}$ is the Earth's radius; the decay factor is $\sigma = 10.0$.
                 </p>
               </div>
 
-              <!-- Spacer / Transparent Placeholder -->
+              <!-- Spacer -->
               <div style="height: 6px; width: 100%;"></div>
 
               <!-- Wind Field Details -->
               <div style="width: 100%; text-align: center;">
-                <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">Solid-Body Rotation $\mathbf{u}(\mathbf{x})$</p>
+                <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">Solid-Body Rotation $\mathbf{u}(\mathbf{x})$ [4]</p>
                 <div class="equation-container" style="font-size: 0.48rem; padding: 1px; width: 100%; margin: 1px 0;">
                   $$\mathbf{u} = \boldsymbol{\Omega} \times \mathbf{x} = \begin{pmatrix} -\omega y \cos\alpha_0 \\ \omega x \cos\alpha_0 - \omega z \sin\alpha_0 \\ \omega y \sin\alpha_0 \end{pmatrix}$$
                 </div>
@@ -521,7 +523,7 @@
               <img src="Wind_Field_v8.jpg" alt="Field Advection and Wind Vectors" style="margin-top: 1px;">
               <div class="fig-title" style="line-height: 1.2; font-size: 0.50rem; margin-top: 1px;">
                 Figure 3: Advection snapshot with wind vectors ($\rightarrow$).<br>
-                Dashed contours denote initial state ($t = 0$), and solid surface shows half-period position ($t = 6\text{ d}$).
+                Dashed contours denote the initial state ($t = 0$); the solid surface shows the solution at one-third period ($t = 4\text{ d}$).
               </div>
 
             </div>
@@ -534,19 +536,22 @@
           <h2 class="card-title">References</h2>
           <ol style="margin-left: 13px; font-size: 0.47rem; line-height: 1.22; color: #334155; margin-bottom: 2px;">
             <li style="margin-bottom: 2px;">
+              E. Praun and H. Hoppe, "Spherical Parametrization and Remeshing," <em>ACM Transactions on Graphics (SIGGRAPH 2003)</em>, 22(3): 340–349, 2003.
+            </li>
+            <li style="margin-bottom: 2px;">
+              T. Chen and C.-W. Shu, "Review of entropy stable discontinuous Galerkin methods for systems of conservation laws on unstructured simplex meshes," <em>Commun. Comput. Phys.</em>, 27(5): 1310–1361, 2020.
+            </li>
+            <li style="margin-bottom: 2px;">
               T. Chen and C.-W. Shu, "Entropy stable high order discontinuous Galerkin methods with suitable quadrature rules on triangular meshes," <em>J. Comput. Phys.</em>, 345: 427–461, 2017.
             </li>
             <li style="margin-bottom: 2px;">
-              T. Chen and C.-W. Shu, "Review of entropy stable discontinuous Galerkin methods for systems of conservation laws on unstructured simplex meshes," <em>Commun. Comput. Phys.</em>, 2020.
+              D. L. Williamson, J. B. Drake, J. J. Hack, R. Jakob, and P. N. Swarztrauber, "A standard test set for numerical approximations to the shallow water equations in spherical geometry," <em>J. Comput. Phys.</em>, 102(1): 211–224, 1992.
             </li>
             <li style="margin-bottom: 2px;">
               J. S. Hesthaven and T. Warburton, <em>Nodal Discontinuous Galerkin Methods: Algorithms, Analysis, and Applications</em>, Springer Science & Business Media, 2008.
             </li>
             <li style="margin-bottom: 2px;">
-              M. H. Carpenter and C. A. Kennedy, "Fourth-order 2N-storage Runge-Kutta schemes," Technical Report NASA-TM-109112, NASA Langley Research Center, 1994.
-            </li>
-            <li style="margin-bottom: 2px;">
-              E. Praun and H. Hoppe, "Spherical Parametrization and Remeshing," <em>ACM Transactions on Graphics (SIGGRAPH 2003)</em>, 22(3): 340–349, 2003.
+              M. H. Carpenter and C. A. Kennedy, "Fourth-order 2N-storage Runge–Kutta schemes," Technical Report NASA-TM-109112, NASA Langley Research Center, 1994.
             </li>
           </ol>
         </div>
@@ -560,18 +565,21 @@
         <div class="card">
           <h2 class="card-title">4. Discrete Formulation</h2>
 
-          <!-- 上方：Quadrature-Nodal Operators -->
-          <div class="sub-heading" style="margin-top: 1px; margin-bottom: 1px;">Quadrature-Nodal Operators</div>
+          <!-- Quadrature-Nodal Operators -->
+          <div class="sub-heading" style="margin-top: 1px; margin-bottom: 1px;">Quadrature-Nodal Operators [5]</div>
           <div class="equation-container" style="padding: 1px 3px; margin: 1px 0; font-size: 0.67rem; text-align: center; line-height: 2.75;">
             $\begin{aligned}
-            V_{ij} = \phi_j(r_i,s_i), \quad (V_b^\gamma)_{ij} = \phi_j(r_i^\gamma,s_i^\gamma), \quad (V_m)_{ij}=\frac{\partial\phi_j(r_i^\gamma,s_i^\gamma)}{\partial m}, \quad P = (V^T W V)^{-1}V^T W  \\[1px]
+            V_{ij} = \phi_j(r_i,s_i), \quad (V^\gamma)_{ij} = \phi_j(r_i^\gamma,s_i^\gamma), \quad (V_m)_{ij}=\frac{\partial\phi_j(r_i^\gamma,s_i^\gamma)}{\partial m}, \quad P = (V^T W V)^{-1}V^T W  \\[1px]
             \end{aligned}$
-            $D_r = V_r P, \quad D_s=V_s P, \quad R^\gamma=V_b^\gamma P, \quad L^\gamma = \frac{1}{J} W^{-1} (R^\gamma)^T W_b
+            $D_r = V_r P, \quad D_s=V_s P, \quad R^\gamma=V^\gamma P, \quad L^\gamma = \frac{1}{J} W^{-1} (R^\gamma)^T W^\gamma
             $
           </div>
+          <p style="font-size: 0.57rem; line-height: 1.20; margin-top: 2px; margin-bottom: 2px; color: #334155; text-align: justify;">
+            Here, $\phi_j(r_i, s_i)$ denotes the $j$-th polynomial basis function evaluated at the $i$-th reference volume quadrature node $(r_i, s_i)$ to form the generalized Vandermonde matrix $V$, and $\gamma \subset \partial T$ denotes an elemental boundary face (edge) of element $T$.
+          </p>
 
-          <!-- 中間：Split-Form DG Discretization & Boundary Flux -->
-          <div class="sub-heading" style="margin-top: 3px; margin-bottom: 1px;">Split-Form DG Discretization</div>
+          <!-- Split-Form DG Discretization & Boundary Flux -->
+          <div class="sub-heading" style="margin-top: 2px; margin-bottom: 1px;">Semi-discrete DG scheme</div>
           <div class="equation-container" style="padding: 1px 3px; margin: 1px 0; font-size: 0.67rem; text-align: center; line-height: 1.2;">
             $\begin{aligned}
             \frac{d\mathbf q}{dt} ={}& -\frac{1}{2J} \Big[
@@ -581,25 +589,28 @@
             \end{aligned}$
             $p^\gamma ={} \frac{1}{2} \Big[n_r^\gamma R^\gamma(J u^r \odot \mathbf{q}) + n_s^\gamma R^\gamma(J u^s \odot \mathbf{q}) + [n_r^\gamma R^\gamma(J u^r) + n_s^\gamma R^\gamma(J u^s) ] \odot (R^\gamma \mathbf{q})\Big] - F^{*,\gamma}$
           </div>
+          <p style="font-size: 0.57rem; line-height: 1.20; margin-top: 2px; color: #334155; text-align: justify;">
+            Here, $F^{*,\gamma}$ represents the numerical boundary flux (e.g., upwind flux) across face $\gamma$, ensuring stable inter-element coupling.
+          </p>
 
-          <!-- 下方：Time Integration -->
-          <div class="sub-heading" style="margin-top: 3px; margin-bottom: 1px;">Time Integration (LSRK54) & Time Step</div>
+          <!-- Time Integration -->
+          <div class="sub-heading" style="margin-top: 3px; margin-bottom: 1px;">Time Integration [6] & Time Step</div>
           <div style="display: flex; gap: 5px; align-items: stretch; margin: 1px 0;">
-            <!-- 左側：LSRK54 推進 -->
+            <!-- Left: LSRK54 -->
             <div class="equation-container" style="flex: 1; padding: 2px 4px; margin: 0; font-size: 0.61rem; display: flex; align-items: center; justify-content: center;">
               $$\forall j = 1, 2, 3, 4, 5, \quad \begin{cases} dU_j = A_j dU_{j-1} + \Delta t F(U_{j-1}, t_n + C_j \Delta t) \\ U_j = U_{j-1} + B_j dU_j \end{cases}$$
             </div>
-            <!-- 右側：dt 公式 -->
+            <!-- Right: dt Formula -->
             <div class="equation-container" style="flex: 0.5; padding: 2px 4px; margin: 0; font-size: 0.61rem; display: flex; align-items: center; justify-content: center;">
               $$\Delta t = \text{CFL} \cdot \frac{h_{\min}}{N^2 \|\mathbf{u}\|_{\max}}$$
             </div>
           </div>
           <p style="font-size: 0.58rem; line-height: 1.22; margin-top: 2px; color: #334155; text-align: justify;">
-            Here, $A_j$ and $B_j$ are the low-storage stage coefficients, $C_j$ denotes the intermediate time levels, and the time step $\Delta t$ is determined by the CFL condition with $\text{CFL} = 1.0$ and maximum advection speed $\|\mathbf{u}\|_{\max} = \omega R \approx 38.61\text{ m/s}$.
+            Here, $A_j$ and $B_j$ are the low-storage stage coefficients, the $C_j$ define the intermediate stage times, and the time step $\Delta t$ is determined by the CFL condition with $\text{CFL} = 1.0$ and maximum advection speed $\|\mathbf{u}\|_{\max} = \omega R \approx 38.61\text{ m/s}$.
           </p>
         </div>
 
-        <!-- 5. Numerical Results (3 Error Blocks Side-by-Side - Original Font Sizes) -->
+        <!-- 5. Numerical Results -->
         <div class="card">
           <h2 class="card-title">5. Numerical Results</h2>
 
@@ -648,7 +659,7 @@
               <tbody>
                 <!-- Table 1 Block (Rowspan 9) -->
                 <tr>
-                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">edge and interior pts.</td>
+                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">Edge & interior pts.</td>
                   <td rowspan="3">2</td>
                   <td>16</td><td>20,480</td><td>3.869e-03</td><td>3.55</td><td>6.527e-03</td><td>3.08</td><td>-5.87e-15</td>
                 </tr>
@@ -683,7 +694,7 @@
 
                 <!-- Table 2 Block (Rowspan 9) -->
                 <tr>
-                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">interior pts.</td>
+                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">Interior pts.</td>
                   <td rowspan="3">2</td>
                   <td>16</td><td>12,288</td><td>4.008e-04</td><td>4.42</td><td>7.482e-04</td><td>4.31</td><td>6.27e-15</td>
                 </tr>
@@ -737,9 +748,9 @@
             This study evaluates a discontinuous Galerkin method in split form for spherical transport problems on octahedral meshes. The main findings and advantages are summarized as follows:
           </p>
           <ul style="margin-left: 12px; font-size: 0.67rem; line-height: 1.32;">
-            <li><strong>Singularity-Free Geometric Mapping:</strong> Eliminates coordinate pole singularities, providing uniform resolution across the sphere.</li>
-            <li><strong>Machine-Precision Conservation & Stability:</strong> Achieves exact mass conservation down to machine precision ($\Delta M_{\text{rel}} \sim 10^{-14}$) and ensures long-term numerical stability.</li>
-            <li><strong>High-Order Convergence:</strong> Solid-body rotation tests demonstrate that relative \(L^2\) error convergence rates surpass the sub-optimal convergence rate of \(O(h^{N+1/2})\), achieving the optimal \(O(h^{N+1})\) rate asymptotically across all node sets.</li>
+            <li><strong>Singularity-Free Geometric Mapping:</strong> Eliminates the coordinate singularities at the poles, giving uniform resolution across the sphere.</li>
+            <li><strong>Machine-Precision Conservation & Stability:</strong> Conserves mass to machine precision ($\Delta M_{\text{rel}} \sim 10^{-14}$) and remains stable over long time integrations.</li>
+            <li><strong>High-Order Convergence:</strong> In solid-body rotation tests, the relative $L^2$ error converges faster than the sub-optimal $\mathcal{O}(h^{N+1/2})$ rate, approaching the optimal $\mathcal{O}(h^{N+1})$ rate asymptotically for all node sets.</li>
           </ul>
         </div>
 
