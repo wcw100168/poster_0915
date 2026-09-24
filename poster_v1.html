@@ -97,7 +97,7 @@
     .title-overlay .email {
       font-size: 0.78rem;
       color: #444444;
-      font-family: Arial, sans-serif;
+      font-family: 'Times New Roman';
     }
 
     /* Content Grid Layout */
@@ -190,7 +190,7 @@
     /* Section 3 Custom 2-Column Layout */
     .section3-grid-custom {
       display: grid;
-      grid-template-columns: 1fr 0.95fr;
+      grid-template-columns: 1fr 0.93fr;
       gap: 6px;
       margin-top: 3px;
     }
@@ -382,7 +382,7 @@
 
     <!-- Title Section Overlay -->
     <section class="title-overlay">
-      <h1 class="paper-title">A Discontinuous Galerkin Scheme for Solving the Spherical Advection Equation <br> in Split Form on Octahedral Meshes</h1>
+      <h1 class="paper-title">A Discontinuous Galerkin Method for Solving the Spherical Advection Equation <br> in Split Form on Octahedral Meshes</h1>
       <div class="authors">
         Students: Yu-Sheng Chiu<sup>1</sup>, Chi-Wei Wang<sup>2</sup>, Po-Hsun Liu<sup>3</sup> &nbsp;|&nbsp; Advisor: Prof. Chun-Hao Teng<sup>1</sup>
       </div>
@@ -390,7 +390,7 @@
         <sup>1,2,3</sup>Department of Applied Mathematics, National Chung Hsing University
       </div>
       <div class="email">
-        Corresponding author: s112053101@smail.nchu.edu.tw
+        Corresponding author: 4112053101@smail.nchu.edu.tw
       </div>
     </section>
 
@@ -415,7 +415,7 @@
             Scalar transport on the sphere arises in many atmospheric and geophysical applications, but longitude–latitude coordinates suffer from singularities at the poles. To avoid this issue, we adopt an octahedron-based triangular manifold mesh [1].
           </p>
           <p>
-            Since quadrature-nodal DG discretizations generally do not preserve the continuous chain rule or product rule, a <span class="highlight-text">split formulation</span> [2] is introduced to correct the discrete structure of the conservation form. Its numerical behavior is then evaluated through the time evolution of the mass-conservation and $L_2$ errors.
+            Since quadrature-nodal DG discretizations generally do not preserve the continuous chain rule or product rule, a <span class="highlight-text">split formulation</span> [2] is introduced to correct the discrete structure of the conservation form. Its numerical behavior is then evaluated through the time evolution of the mass-conservation, $L_2$, and $L_\infty$ errors.
           </p>
         </div>
 
@@ -462,18 +462,18 @@
               <!-- Block 1: Mesh & Quadrature Nodes -->
               <div class="sub-card">
                 <span class="sub-card-title">1. Mesh & Quadrature Nodes</span>
-                <p style="font-size: 0.58rem; margin: 1px 0;">Symmetric node sets ($N = 2\text{–}4$) [3]:</p>
+                <p style="font-size: 0.58rem; margin: 1px 0;">Symmetric node sets ($N = 2\text{–}4$):</p>
                 <div style="display: flex; flex-direction: column; gap: 1px; align-items: center; width: 100%;">
                   <div style="text-align: center; width: 100%;">
-                    <img src="table1.png" alt="Nodes Set A">
-                    <div style="font-size: 0.52rem; color: #334155;">Set A: $n_k = 6, 10, 18, 22$</div>
+                    <img src="table1.png" alt="Edge & interior pts.">
+                    <div style="font-size: 0.50rem; color: #334155;">Edge & interior pts.: $n_k = 6, 10, 18, 22$</div>
                   </div>
                   <div style="text-align: center; width: 100%;">
-                    <img src="table2.png" alt="Nodes Set B">
-                    <div style="font-size: 0.52rem; color: #334155;">Set B: $n_k = 3, 6, 12, 16$</div>
+                    <img src="table2.png" alt="Pure interior pts.">
+                    <div style="font-size: 0.50rem; color: #334155;">Pure interior pts.: $n_k = 3, 6, 12, 16$</div>
                   </div>
                 </div>
-                <div class="fig-title">Figure 1: Quadrature Node Distributions</div>
+                <div class="fig-title">Figure 1: Quadrature Node Distributions <span style="font-weight: normal;">[3]</span></div>
               </div>
 
               <!-- Block 2: Octahedral Mapping -->
@@ -481,7 +481,7 @@
                 <span class="sub-card-title">2. Octahedral Mapping </span>
                 <div style="position: relative; width: 100%; margin: 2px 0;">
                   <img src="Octahedral_Mapping_v5.png" alt="Octahedral Mapping" style="width: 100%; display: block;">
-                  <div class="equation-container" style="position: absolute; top: 4px; right: 4px; font-size: 0.67rem; padding: 2px 5px; background: rgba(248, 250, 252, 0.95); border: 1px solid #cbd5e1; border-radius: 3px; z-index: 2; margin: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
+                  <div class="equation-container" style="position: absolute; top: 4px; right: 4px; font-size: 0.67rem; padding: 2px 5px; background: #f8fafc; border: 1px solid #94a3b8; border-radius: 3px; z-index: 2; margin: 0;">
                     $\mathbf{x}_p = R \dfrac{\mathbf{x}_{\text{flat}}}{\|\mathbf{x}_{\text{flat}}\|}$
                   </div>
                 </div>
@@ -571,7 +571,7 @@
             $\begin{aligned}
             V_{ij} = \phi_j(r_i,s_i), \quad (V^\gamma)_{ij} = \phi_j(r_i^\gamma,s_i^\gamma), \quad P = (V^T W V)^{-1}V^T W, \quad R^\gamma=V^\gamma P  \\[1px]
             \end{aligned}$
-            $(V_m)_{ij}=\dfrac{\partial\phi_j(r_i,s_i)}{\partial m}, \quad D_m = V_m P \quad (m \in \{r, s\}), \quad L^\gamma = \frac{1}{J} W^{-1} (R^\gamma)^T W^\gamma
+            $(V_m)_{ij}=\dfrac{\partial\phi_j(r_i,s_i)}{\partial m}, \quad D_m = V_m P \quad (m \in \{r, s\}), \quad L^\gamma = \dfrac{1}{J} W^{-1} (R^\gamma)^T W^\gamma
             $
           </div>
           <p style="font-size: 0.57rem; line-height: 1.20; margin-top: 2px; margin-bottom: 2px; color: #334155; text-align: justify;">
@@ -617,7 +617,7 @@
             <!-- 1. Relative L2 Error -->
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L_2$ Error</strong>
-              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
+              <div class="equation-container" style="font-size: 0.71rem; padding: 0; border: none; background: transparent;">
                 $\|e\|_2 = \sqrt{\frac{\int_{\Omega} J(q - q_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$
               </div>
             </div>
@@ -625,15 +625,15 @@
             <!-- 2. Relative Linf Error -->
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L_\infty$ Error</strong>
-              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
-                $\|e\|_\infty = \frac{\max_{\Omega} |q - q_{\text{ex}}|}{\max_{\Omega} |q_{\text{ex}}|}$
+              <div class="equation-container" style="font-size: 0.60rem; padding: 0; border: none; background: transparent;">
+                $\|e\|_\infty = \dfrac{\max_{\Omega} |q - q_{\text{ex}}|}{\max_{\Omega} |q_{\text{ex}}|}$
               </div>
             </div>
 
             <!-- 3. Relative Mass Error -->
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative Mass Error</strong>
-              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
+              <div class="equation-container" style="font-size: 0.71rem; padding: 0; border: none; background: transparent;">
                 $\Delta M_{\text{rel}} = \frac{\int_\Omega J(q - q_0) d\Omega}{\int_\Omega Jq_0 d\Omega}$
               </div>
             </div>
@@ -660,7 +660,7 @@
                 <tr>
                   <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">Edge & interior pts.</td>
                   <td rowspan="3">2</td>
-                  <td>16</td><td>20,480</td><td>3.869e-03</td><td>3.55</td><td>6.527e-03</td><td>3.08</td><td>-5.87e-15</td>
+                  <td>16</td><td>20,480</td><td>3.869e-03</td><td>-</td><td>6.527e-03</td><td>-</td><td>-5.87e-15</td>
                 </tr>
                 <tr>
                   <td>32</td><td>81,920</td><td>2.837e-04</td><td>3.77</td><td>6.067e-04</td><td>3.43</td><td>-1.21e-14</td>
@@ -671,7 +671,7 @@
 
                 <tr>
                   <td rowspan="3">3</td>
-                  <td>16</td><td>36,864</td><td>1.035e-04</td><td>4.22</td><td>2.178e-04</td><td>3.79</td><td>-1.07e-15</td>
+                  <td>16</td><td>36,864</td><td>1.035e-04</td><td>-</td><td>2.178e-04</td><td>-</td><td>-1.07e-15</td>
                 </tr>
                 <tr>
                   <td>32</td><td>147,456</td><td>5.210e-06</td><td>4.31</td><td>2.040e-05</td><td>3.42</td><td>-1.47e-15</td>
@@ -682,7 +682,7 @@
 
                 <tr>
                   <td rowspan="3">4</td>
-                  <td>16</td><td>45,056</td><td>1.198e-05</td><td>4.45</td><td>2.199e-05</td><td>4.29</td><td>5.47e-15</td>
+                  <td>16</td><td>45,056</td><td>1.198e-05</td><td>-</td><td>2.199e-05</td><td>-</td><td>5.47e-15</td>
                 </tr>
                 <tr>
                   <td>32</td><td>180,224</td><td>4.220e-07</td><td>4.83</td><td>9.015e-07</td><td>4.61</td><td>1.00e-14</td>
@@ -693,9 +693,9 @@
 
                 <!-- Table 2 Block (Rowspan 9) -->
                 <tr>
-                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">Interior pts.</td>
+                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">Pure interior pts.</td>
                   <td rowspan="3">2</td>
-                  <td>16</td><td>12,288</td><td>4.008e-04</td><td>4.42</td><td>7.482e-04</td><td>4.31</td><td>6.27e-15</td>
+                  <td>16</td><td>12,288</td><td>4.008e-04</td><td>-</td><td>7.482e-04</td><td>-</td><td>6.27e-15</td>
                 </tr>
                 <tr>
                   <td>32</td><td>49,152</td><td>2.669e-05</td><td>3.91</td><td>5.135e-05</td><td>3.87</td><td>1.52e-14</td>
@@ -706,7 +706,7 @@
 
                 <tr>
                   <td rowspan="3">3</td>
-                  <td>16</td><td>24,576</td><td>3.266e-05</td><td>4.36</td><td>4.690e-05</td><td>4.67</td><td>-2.13e-14</td>
+                  <td>16</td><td>24,576</td><td>3.266e-05</td><td>-</td><td>4.690e-05</td><td>-</td><td>-2.13e-14</td>
                 </tr>
                 <tr>
                   <td>32</td><td>98,304</td><td>1.932e-06</td><td>4.08</td><td>2.862e-06</td><td>4.03</td><td>-4.39e-14</td>
@@ -717,7 +717,7 @@
 
                 <tr>
                   <td rowspan="3">4</td>
-                  <td>16</td><td>32,768</td><td>1.978e-06</td><td>5.07</td><td>3.791e-06</td><td>4.90</td><td>-1.51e-14</td>
+                  <td>16</td><td>32,768</td><td>1.978e-06</td><td>-</td><td>3.791e-06</td><td>-</td><td>-1.51e-14</td>
                 </tr>
                 <tr>
                   <td>32</td><td>131,072</td><td>6.094e-08</td><td>5.02</td><td>1.523e-07</td><td>4.64</td><td>-2.99e-14</td>

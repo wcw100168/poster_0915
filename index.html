@@ -97,7 +97,7 @@
     .title-overlay .email {
       font-size: 0.78rem;
       color: #444444;
-      font-family: Arial, sans-serif;
+      font-family: 'Times New Roman';
     }
 
     /* Content Grid Layout */
@@ -116,7 +116,7 @@
     .column {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 3.5px;
     }
 
     /* Card Box Styles */
@@ -124,7 +124,7 @@
       background-color: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 4px;
-      padding: 7px 9px;
+      padding: 3px 8px;
       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
     }
 
@@ -132,9 +132,9 @@
       font-size: 0.92rem;
       font-weight: bold;
       color: var(--tsfd-navy);
-      border-bottom: 2px solid var(--tsfd-navy);
-      padding-bottom: 2px;
-      margin-bottom: 4px;
+      border-bottom: 1.5px solid var(--tsfd-navy);
+      padding-bottom: 1px;
+      margin-bottom: 2px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -190,7 +190,7 @@
     /* Section 3 Custom 2-Column Layout */
     .section3-grid-custom {
       display: grid;
-      grid-template-columns: 1fr 0.95fr;
+      grid-template-columns: 1fr 0.93fr;
       gap: 6px;
       margin-top: 3px;
     }
@@ -382,7 +382,7 @@
 
     <!-- Title Section Overlay -->
     <section class="title-overlay">
-      <h1 class="paper-title">A Discontinuous Galerkin Scheme for Solving the Spherical Advection Equation <br> in Split Form on Octahedral Meshes</h1>
+      <h1 class="paper-title">A Discontinuous Galerkin Method for Solving the Spherical Advection Equation <br> in Split Form on Octahedral Meshes</h1>
       <div class="authors">
         Students: Yu-Sheng Chiu<sup>1</sup>, Chi-Wei Wang<sup>2</sup>, Po-Hsun Liu<sup>3</sup> &nbsp;|&nbsp; Advisor: Prof. Chun-Hao Teng<sup>1</sup>
       </div>
@@ -390,7 +390,7 @@
         <sup>1,2,3</sup>Department of Applied Mathematics, National Chung Hsing University
       </div>
       <div class="email">
-        Corresponding author: s112053101@smail.nchu.edu.tw
+        Corresponding author: 4112053101@smail.nchu.edu.tw
       </div>
     </section>
 
@@ -412,10 +412,10 @@
         <div class="card">
           <h2 class="card-title">1. Introduction</h2>
           <p>
-            Scalar transport on the sphere arises in many atmospheric and geophysical applications, but standard longitude–latitude coordinates suffer from singularities at the poles. To avoid this issue, we adopt an octahedron-based triangular manifold mesh [1].
+            Scalar transport on the sphere arises in many atmospheric and geophysical applications, but longitude–latitude coordinates suffer from singularities at the poles. To avoid this issue, we adopt an octahedron-based triangular manifold mesh [1].
           </p>
           <p>
-            Since quadrature-nodal DG discretizations generally do not preserve the continuous chain rule or product rule, a <span class="highlight-text">split formulation</span> [2] is introduced to correct the discrete structure of the conservation form. Its numerical behavior is then evaluated through the time evolution of the mass-conservation and $L^2$ errors.
+            Since quadrature-nodal DG discretizations generally do not preserve the continuous chain rule or product rule, a <span class="highlight-text">split formulation</span> [2] is introduced to correct the discrete structure of the conservation form. Its numerical behavior is then evaluated through the time evolution of the mass-conservation, $L_2$, and $L_\infty$ errors.
           </p>
         </div>
 
@@ -462,30 +462,30 @@
               <!-- Block 1: Mesh & Quadrature Nodes -->
               <div class="sub-card">
                 <span class="sub-card-title">1. Mesh & Quadrature Nodes</span>
-                <p style="font-size: 0.58rem; margin: 1px 0;">Symmetric node sets ($N = 2\text{–}4$) [3]:</p>
+                <p style="font-size: 0.58rem; margin: 1px 0;">Symmetric node sets ($N = 2\text{–}4$):</p>
                 <div style="display: flex; flex-direction: column; gap: 1px; align-items: center; width: 100%;">
                   <div style="text-align: center; width: 100%;">
-                    <img src="table1.png" alt="Nodes Set A">
-                    <div style="font-size: 0.52rem; color: #334155;">Set A: $n_k = 6, 10, 18, 22$</div>
+                    <img src="table1.png" alt="Edge & interior pts.">
+                    <div style="font-size: 0.50rem; color: #334155;">Edge & interior pts.: $n_k = 6, 10, 18, 22$</div>
                   </div>
                   <div style="text-align: center; width: 100%;">
-                    <img src="table2.png" alt="Nodes Set B">
-                    <div style="font-size: 0.52rem; color: #334155;">Set B: $n_k = 3, 6, 12, 16$</div>
+                    <img src="table2.png" alt="Pure interior pts.">
+                    <div style="font-size: 0.50rem; color: #334155;">Pure interior pts.: $n_k = 3, 6, 12, 16$</div>
                   </div>
                 </div>
-                <div class="fig-title">Figure 1: Quadrature Node Distributions</div>
+                <div class="fig-title">Figure 1: Quadrature Node Distributions <span style="font-weight: normal;">[3]</span></div>
               </div>
 
               <!-- Block 2: Octahedral Mapping -->
               <div class="sub-card">
-                <span class="sub-card-title">2. Octahedral Mapping [1]</span>
+                <span class="sub-card-title">2. Octahedral Mapping </span>
                 <div style="position: relative; width: 100%; margin: 2px 0;">
                   <img src="Octahedral_Mapping_v5.png" alt="Octahedral Mapping" style="width: 100%; display: block;">
-                  <div class="equation-container" style="position: absolute; top: 4px; right: 4px; font-size: 0.56rem; padding: 2px 5px; background: rgba(248, 250, 252, 0.95); border: 1px solid #cbd5e1; border-radius: 3px; z-index: 2; margin: 0; box-shadow: 0 1px 3px rgba(0,0,0,0.08);">
-                    $$\mathbf{x}_p = R \frac{\mathbf{x}_{\text{flat}}}{\|\mathbf{x}_{\text{flat}}\|}$$
+                  <div class="equation-container" style="position: absolute; top: 4px; right: 4px; font-size: 0.67rem; padding: 2px 5px; background: #f8fafc; border: 1px solid #94a3b8; border-radius: 3px; z-index: 2; margin: 0;">
+                    $\mathbf{x}_p = R \dfrac{\mathbf{x}_{\text{flat}}}{\|\mathbf{x}_{\text{flat}}\|}$
                   </div>
                 </div>
-                <div class="fig-title">Figure 2: Radial Projection Mapping</div>
+                <div class="fig-title">Figure 2: Radial Projection Mapping <span style="font-weight: normal;">[1]</span></div>
               </div>
 
             </div>
@@ -498,7 +498,7 @@
               <div style="width: 100%; text-align: center;">
                 <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">3D Gaussian hill ($q_{\max} = 1000$)</p>
                 <div class="equation-container" style="font-size: 0.55rem; padding: 1px; width: 100%; margin: 1px 0;">
-                  $$q_0(\mathbf{x}) = 1000 \exp(-\sigma r^2), \quad r = \arccos(\mathbf{x} \cdot \mathbf{x}_c)$$
+                  $$q_0(\mathbf{x}) = 1000 \exp(-\sigma r^2), \quad r = \arccos(\frac{\mathbf{x} \cdot \mathbf{x}_c}{R^2})$$
                 </div>
                 <p style="font-size: 0.52rem; color: #334155; margin: 0;">
                   Center $\mathbf{x}_c = (R, 0, 0)^T$ where $R = 6.371 \times 10^6\text{ m}$ is the Earth's radius; the decay factor is $\sigma = 10.0$.
@@ -506,16 +506,16 @@
               </div>
 
               <!-- Spacer -->
-              <div style="height: 6px; width: 100%;"></div>
+              <div style="height: 0px; width: 100%;"></div>
 
               <!-- Wind Field Details -->
               <div style="width: 100%; text-align: center;">
-                <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">Solid-Body Rotation $\mathbf{u}(\mathbf{x})$ [4]</p>
+                <p style="font-size: 0.58rem; font-weight: bold; color: var(--tsfd-navy); margin: 0;">Solid-Body Rotation $\mathbf{u}(\mathbf{x})$ </p>
                 <div class="equation-container" style="font-size: 0.48rem; padding: 1px; width: 100%; margin: 1px 0;">
                   $$\mathbf{u} = \boldsymbol{\Omega} \times \mathbf{x} = \begin{pmatrix} -\omega y \cos\alpha_0 \\ \omega x \cos\alpha_0 - \omega z \sin\alpha_0 \\ \omega y \sin\alpha_0 \end{pmatrix}$$
                 </div>
                 <p style="font-size: 0.52rem; color: #334155; margin: 0;">
-                  Period $T = 12\text{ days}$, $\omega = 2\pi / T$, angle $\alpha_0 = -\pi/4$.
+                  Test case [4] with period $T = 12\text{ days}$, $\omega = 2\pi / T$, and flow angle $\alpha_0 = -\pi/4$.
                 </p>
               </div>
 
@@ -523,7 +523,7 @@
               <img src="Wind_Field_v8.jpg" alt="Field Advection and Wind Vectors" style="margin-top: 1px;">
               <div class="fig-title" style="line-height: 1.2; font-size: 0.50rem; margin-top: 1px;">
                 Figure 3: Advection snapshot with wind vectors ($\rightarrow$).<br>
-                Dashed contours denote the initial state ($t = 0$); the solid surface shows the solution at one-third period ($t = 4\text{ d}$).
+                Dashed contours denote the initial state ($t = 0$); the color field shows the solution at one-third period ($t = 4\text{ days}$).
               </div>
 
             </div>
@@ -534,7 +534,7 @@
         <!-- References -->
         <div class="card">
           <h2 class="card-title">References</h2>
-          <ol style="margin-left: 13px; font-size: 0.47rem; line-height: 1.22; color: #334155; margin-bottom: 2px;">
+          <ol style="margin-left: 13px; font-size: 0.52rem; line-height: 1.22; color: #334155; margin-bottom: 2px;">
             <li style="margin-bottom: 2px;">
               E. Praun and H. Hoppe, "Spherical Parametrization and Remeshing," <em>ACM Transactions on Graphics (SIGGRAPH 2003)</em>, 22(3): 340–349, 2003.
             </li>
@@ -566,17 +566,16 @@
           <h2 class="card-title">4. Discrete Formulation</h2>
 
           <!-- Quadrature-Nodal Operators -->
-          <div class="sub-heading" style="margin-top: 1px; margin-bottom: 1px;">Quadrature-Nodal Operators [5]</div>
+          <div class="sub-heading" style="margin-top: 1px; margin-bottom: 1px;">Quadrature-Nodal Operators</div>
           <div class="equation-container" style="padding: 1px 3px; margin: 1px 0; font-size: 0.67rem; text-align: center; line-height: 2.75;">
             $\begin{aligned}
-            V_{ij} = \phi_j(r_i,s_i), \quad (V^\gamma)_{ij} = \phi_j(r_i^\gamma,s_i^\gamma), \quad (V_m)_{ij}=\frac{\partial\phi_j(r_i^\gamma,s_i^\gamma)}{\partial m}, \quad P = (V^T W V)^{-1}V^T W  \\[1px]
+            V_{ij} = \phi_j(r_i,s_i), \quad (V^\gamma)_{ij} = \phi_j(r_i^\gamma,s_i^\gamma), \quad P = (V^T W V)^{-1}V^T W, \quad R^\gamma=V^\gamma P  \\[1px]
             \end{aligned}$
-            $D_r = V_r P, \quad D_s=V_s P, \quad R^\gamma=V^\gamma P, \quad L^\gamma = \frac{1}{J} W^{-1} (R^\gamma)^T W^\gamma
+            $(V_m)_{ij}=\dfrac{\partial\phi_j(r_i,s_i)}{\partial m}, \quad D_m = V_m P \quad (m \in \{r, s\}), \quad L^\gamma = \dfrac{1}{J} W^{-1} (R^\gamma)^T W^\gamma
             $
           </div>
           <p style="font-size: 0.57rem; line-height: 1.20; margin-top: 2px; margin-bottom: 2px; color: #334155; text-align: justify;">
-            Here, $\phi_j(r_i, s_i)$ denotes the $j$-th polynomial basis function evaluated at the $i$-th reference volume quadrature node $(r_i, s_i)$ to form the generalized Vandermonde matrix $V$, and $\gamma \subset \partial T$ denotes an elemental boundary face (edge) of element $T$.
-          </p>
+            Here, $(r, s)$ denote reference element coordinates, and $\phi_j$ is the $j$-th Dubiner basis function [5]. The matrices $V$ and $V^\gamma$ represent Vandermonde matrices evaluated at volume nodes $(r_i, s_i)$ and Gauss–Legendre boundary face nodes $(r_i^\gamma, s_i^\gamma)$, with $W$ and $W^\gamma$ being the diagonal volume and face quadrature weight matrices, respectively [3].
 
           <!-- Split-Form DG Discretization & Boundary Flux -->
           <div class="sub-heading" style="margin-top: 2px; margin-bottom: 1px;">Semi-discrete DG scheme</div>
@@ -594,7 +593,7 @@
           </p>
 
           <!-- Time Integration -->
-          <div class="sub-heading" style="margin-top: 3px; margin-bottom: 1px;">Time Integration [6] & Time Step</div>
+          <div class="sub-heading" style="margin-top: 3px; margin-bottom: 1px;">Time Integration & Time Step</div>
           <div style="display: flex; gap: 5px; align-items: stretch; margin: 1px 0;">
             <!-- Left: LSRK54 -->
             <div class="equation-container" style="flex: 1; padding: 2px 4px; margin: 0; font-size: 0.61rem; display: flex; align-items: center; justify-content: center;">
@@ -606,7 +605,7 @@
             </div>
           </div>
           <p style="font-size: 0.58rem; line-height: 1.22; margin-top: 2px; color: #334155; text-align: justify;">
-            Here, $A_j$ and $B_j$ are the low-storage stage coefficients, the $C_j$ define the intermediate stage times, and the time step $\Delta t$ is determined by the CFL condition with $\text{CFL} = 1.0$ and maximum advection speed $\|\mathbf{u}\|_{\max} = \omega R \approx 38.61\text{ m/s}$.
+            Here, $A_j$ and $B_j$ are the low-storage stage coefficients, the $C_j$ define the intermediate stage times [6], and the time step $\Delta t$ is determined by the CFL condition with $\text{CFL} = 1.0$ and maximum advection speed $\|\mathbf{u}\|_{\max} = \omega R \approx 38.61\text{ m/s}$.
           </p>
         </div>
 
@@ -617,24 +616,24 @@
           <div class="error-triple-container">
             <!-- 1. Relative L2 Error -->
             <div class="error-sub-block">
-              <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^2$ Error</strong>
-              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
+              <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L_2$ Error</strong>
+              <div class="equation-container" style="font-size: 0.71rem; padding: 0; border: none; background: transparent;">
                 $\|e\|_2 = \sqrt{\frac{\int_{\Omega} J(q - q_{\text{ex}})^2 d\Omega}{\int_{\Omega} Jq_{\text{ex}}^2 d\Omega}}$
               </div>
             </div>
 
             <!-- 2. Relative Linf Error -->
             <div class="error-sub-block">
-              <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L^\infty$ Error</strong>
-              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
-                $\|e\|_\infty = \frac{\max_{\Omega} |q - q_{\text{ex}}|}{\max_{\Omega} |q_{\text{ex}}|}$
+              <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative $L_\infty$ Error</strong>
+              <div class="equation-container" style="font-size: 0.60rem; padding: 0; border: none; background: transparent;">
+                $\|e\|_\infty = \dfrac{\max_{\Omega} |q - q_{\text{ex}}|}{\max_{\Omega} |q_{\text{ex}}|}$
               </div>
             </div>
 
             <!-- 3. Relative Mass Error -->
             <div class="error-sub-block">
               <strong style="font-size: 0.60rem; color: var(--tsfd-navy);">Relative Mass Error</strong>
-              <div class="equation-container" style="font-size: 0.67rem; padding: 0; border: none; background: transparent;">
+              <div class="equation-container" style="font-size: 0.71rem; padding: 0; border: none; background: transparent;">
                 $\Delta M_{\text{rel}} = \frac{\int_\Omega J(q - q_0) d\Omega}{\int_\Omega Jq_0 d\Omega}$
               </div>
             </div>
@@ -661,7 +660,7 @@
                 <tr>
                   <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">Edge & interior pts.</td>
                   <td rowspan="3">2</td>
-                  <td>16</td><td>20,480</td><td>3.869e-03</td><td>3.55</td><td>6.527e-03</td><td>3.08</td><td>-5.87e-15</td>
+                  <td>16</td><td>20,480</td><td>3.869e-03</td><td>-</td><td>6.527e-03</td><td>-</td><td>-5.87e-15</td>
                 </tr>
                 <tr>
                   <td>32</td><td>81,920</td><td>2.837e-04</td><td>3.77</td><td>6.067e-04</td><td>3.43</td><td>-1.21e-14</td>
@@ -672,7 +671,7 @@
 
                 <tr>
                   <td rowspan="3">3</td>
-                  <td>16</td><td>36,864</td><td>1.035e-04</td><td>4.22</td><td>2.178e-04</td><td>3.79</td><td>-1.07e-15</td>
+                  <td>16</td><td>36,864</td><td>1.035e-04</td><td>-</td><td>2.178e-04</td><td>-</td><td>-1.07e-15</td>
                 </tr>
                 <tr>
                   <td>32</td><td>147,456</td><td>5.210e-06</td><td>4.31</td><td>2.040e-05</td><td>3.42</td><td>-1.47e-15</td>
@@ -683,7 +682,7 @@
 
                 <tr>
                   <td rowspan="3">4</td>
-                  <td>16</td><td>45,056</td><td>1.198e-05</td><td>4.45</td><td>2.199e-05</td><td>4.29</td><td>5.47e-15</td>
+                  <td>16</td><td>45,056</td><td>1.198e-05</td><td>-</td><td>2.199e-05</td><td>-</td><td>5.47e-15</td>
                 </tr>
                 <tr>
                   <td>32</td><td>180,224</td><td>4.220e-07</td><td>4.83</td><td>9.015e-07</td><td>4.61</td><td>1.00e-14</td>
@@ -694,9 +693,9 @@
 
                 <!-- Table 2 Block (Rowspan 9) -->
                 <tr>
-                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">Interior pts.</td>
+                  <td rowspan="9" style="font-size: 0.58rem; font-weight: bold;">Pure interior pts.</td>
                   <td rowspan="3">2</td>
-                  <td>16</td><td>12,288</td><td>4.008e-04</td><td>4.42</td><td>7.482e-04</td><td>4.31</td><td>6.27e-15</td>
+                  <td>16</td><td>12,288</td><td>4.008e-04</td><td>-</td><td>7.482e-04</td><td>-</td><td>6.27e-15</td>
                 </tr>
                 <tr>
                   <td>32</td><td>49,152</td><td>2.669e-05</td><td>3.91</td><td>5.135e-05</td><td>3.87</td><td>1.52e-14</td>
@@ -707,7 +706,7 @@
 
                 <tr>
                   <td rowspan="3">3</td>
-                  <td>16</td><td>24,576</td><td>3.266e-05</td><td>4.36</td><td>4.690e-05</td><td>4.67</td><td>-2.13e-14</td>
+                  <td>16</td><td>24,576</td><td>3.266e-05</td><td>-</td><td>4.690e-05</td><td>-</td><td>-2.13e-14</td>
                 </tr>
                 <tr>
                   <td>32</td><td>98,304</td><td>1.932e-06</td><td>4.08</td><td>2.862e-06</td><td>4.03</td><td>-4.39e-14</td>
@@ -718,7 +717,7 @@
 
                 <tr>
                   <td rowspan="3">4</td>
-                  <td>16</td><td>32,768</td><td>1.978e-06</td><td>5.07</td><td>3.791e-06</td><td>4.90</td><td>-1.51e-14</td>
+                  <td>16</td><td>32,768</td><td>1.978e-06</td><td>-</td><td>3.791e-06</td><td>-</td><td>-1.51e-14</td>
                 </tr>
                 <tr>
                   <td>32</td><td>131,072</td><td>6.094e-08</td><td>5.02</td><td>1.523e-07</td><td>4.64</td><td>-2.99e-14</td>
@@ -745,12 +744,12 @@
         <div class="card">
           <h2 class="card-title">6. Conclusions</h2>
           <p style="margin-bottom: 3px; font-size: 0.68rem;">
-            This study evaluates a discontinuous Galerkin method in split form for spherical transport problems on octahedral meshes. The main findings and advantages are summarized as follows:
+            This study evaluates a discontinuous Galerkin method for spherical transport problems in split form on octahedral meshes. The main findings and advantages are summarized as follows:
           </p>
           <ul style="margin-left: 12px; font-size: 0.67rem; line-height: 1.32;">
             <li><strong>Singularity-Free Geometric Mapping:</strong> Eliminates the coordinate singularities at the poles, giving uniform resolution across the sphere.</li>
-            <li><strong>Machine-Precision Conservation & Stability:</strong> Conserves mass to machine precision ($\Delta M_{\text{rel}} \sim 10^{-14}$) and remains stable over long time integrations.</li>
-            <li><strong>High-Order Convergence:</strong> In solid-body rotation tests, the relative $L^2$ error converges faster than the sub-optimal $\mathcal{O}(h^{N+1/2})$ rate, approaching the optimal $\mathcal{O}(h^{N+1})$ rate asymptotically for all node sets.</li>
+            <li><strong>Mass Conservation & Stability:</strong> Conserves mass to machine precision $(\Delta M_{\text{rel}} \sim 10^{-14})$ and remains stable over long time integrations.</li>
+            <li><strong>High-Order Convergence:</strong> In solid-body rotation tests, the relative $L_2$ error converges faster than the sub-optimal $\mathcal{O}(h^{N+1/2})$ rate, approaching the optimal $\mathcal{O}(h^{N+1})$ rate asymptotically for all node sets.</li>
           </ul>
         </div>
 
